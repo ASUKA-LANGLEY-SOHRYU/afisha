@@ -15,4 +15,5 @@ public class MainController {
     public String getHelloPage(){
         return "../pages/hello";
     }
+
 }
