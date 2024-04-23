@@ -8,12 +8,12 @@ public class MainController {
 
     @GetMapping("/")
     public String getMainPage(){
-        return "../pages/index";
+        return "../frontend/index";
     }
 
     @GetMapping("/hello")
     public String getHelloPage(){
-        return "../pages/hello";
+        return "../frontend/hello";
     }
 
 }
