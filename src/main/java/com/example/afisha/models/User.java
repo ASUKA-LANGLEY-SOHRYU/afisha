@@ -1,14 +1,26 @@
 package com.example.afisha.models;
 
-import lombok.*;
-import java.util.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-// Поля: id, lastName, firstName, middleName, phoneNumber, email, birthDate, role(user/organizer/admin)
+import java.util.Date;
+import java.util.List;
 
-@Setter
-@Getter
+@Data
+@Entity
+@Table(name = "usr")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String lastName;
 
@@ -20,7 +32,13 @@ public class User {
 
     private String email;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
-    private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
+    //TODO: добавить после подключения Spring Security
+    //private Role role;
 }

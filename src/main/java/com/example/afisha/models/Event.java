@@ -1,19 +1,31 @@
 package com.example.afisha.models;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.*;
 
-// поля: id, price, dateTime, organization
-
-@Setter
-@Getter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class Event {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private Integer price;
 
+    private String name;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date DateTime;
 
     private String Organization;
+
+    @OneToMany(mappedBy = "event")
+    private List<Order> orders;
+
 }

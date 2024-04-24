@@ -1,11 +1,25 @@
 package com.example.afisha.models;
 
-// поля: id, userID, eventID
-
+import jakarta.persistence.*;
 import lombok.*;
 
-@Setter
-@Getter
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "ordr")
 public class Order {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    private Event event;
 }
