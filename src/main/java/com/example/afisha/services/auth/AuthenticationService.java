@@ -26,7 +26,7 @@ public class AuthenticationService {
     @Transactional
     public void register(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(Role.USER)); //TODO: Добавить назначение ролей на форме
+        user.getRoles().forEach(System.out::println);
         userRepository.save(user);
     }
 }

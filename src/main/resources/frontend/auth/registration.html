@@ -25,9 +25,9 @@
         <input type="text" name="patronymic" id="patronymic" required/>
         <div style="color: red" th:if="${#fields.hasErrors('patronymic')}">Ошибка!</div><br/>
 
-<!--        <label for="birthDate">Дата рождения: </label>-->
-<!--        <input type="date" name="birthDate" id="birthDate" required/>-->
-<!--        <div style="color: red" th:if="${#fields.hasErrors('birthDate')}">Ошибка!</div><br/>-->
+        <label for="birthDate">Дата рождения (dd.MM.yyyy): </label>
+        <input type="text" name="birthDate" id="birthDate" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('birthDate')}">Ошибка!</div><br/>
 
         <label for="phoneNumber">Номер телефона: </label>
         <input type="tel" name="phoneNumber" id="phoneNumber" required/>
@@ -36,6 +36,10 @@
         <label for="password">Пароль: </label>
         <input type="password" name="password" id="password" required/>
         <div style="color: red" th:if="${#fields.hasErrors('password')}">Ошибка!</div><br/>
+
+        <label for="isOrg">Вы организатор: </label>
+        <input type="checkbox" name="isOrganizer" id="isOrg"/>
+        <div style="color: red" th:if="${#fields.hasErrors('isOrganizer')}">Ошибка!</div><br/>
 
         <input type="submit" value="Зарегистрироваться">
     </form>

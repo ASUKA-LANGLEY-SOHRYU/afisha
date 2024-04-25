@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private String password;
 
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date birthDate;
 
     @OneToMany(mappedBy = "user")

@@ -1,8 +1,9 @@
 package com.example.afisha.controllers;
 
-import com.example.afisha.models.User;
+import com.example.afisha.models.form.UserForm;
 import com.example.afisha.services.auth.AuthenticationService;
-import com.example.afisha.util.UserValidator;
+import com.example.afisha.util.UserFormMapper;
+import com.example.afisha.util.UserFormValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
     private final AuthenticationService authenticationService;
-    private final UserValidator userValidator;
+    private final UserFormValidator userFormValidator;
 
-    public AuthController(AuthenticationService authenticationService, UserValidator userValidator) {
+    private final UserFormMapper userFormMapper;
+
+    public AuthController(AuthenticationService authenticationService, UserFormValidator userValidator, UserFormMapper userFormMapper) {
         this.authenticationService = authenticationService;
-        this.userValidator = userValidator;
+        this.userFormValidator = userValidator;
+        this.userFormMapper = userFormMapper;
     }
 
     @GetMapping("/login")
@@ -28,19 +32,18 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String registrationPage(@ModelAttribute("user") User user){
+    public String registrationPage(@ModelAttribute("user") UserForm user){
         return "auth/registration";
     }
 
     @PostMapping("/registration")
-    public String register(@ModelAttribute("user") User user,
+    public String register(@ModelAttribute("user") UserForm user,
                            BindingResult bindingResult){
-        userValidator.validate(user, bindingResult);
-
+        userFormValidator.validate(user, bindingResult);
         if(bindingResult.hasErrors())
             return "auth/registration";
 
-        authenticationService.register(user);
+        authenticationService.register(userFormMapper.map(user));
         return "redirect:/auth/login";
     }
 }
