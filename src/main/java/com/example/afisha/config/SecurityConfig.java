@@ -40,7 +40,6 @@ public class SecurityConfig {
                 })
                 .csrf(AbstractHttpConfigurer::disable)// csrf disabled
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/").permitAll()
                         .requestMatchers("/auth/login", "/auth/registration").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider);
