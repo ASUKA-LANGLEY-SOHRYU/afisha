@@ -16,6 +16,7 @@ public class OrdersController {
 
     @GetMapping("/order/{userId}")
     public String getMainPage(@PathVariable("userId") long userId, Model model) {
+        model.addAttribute("userId", userId);
         model.addAttribute("userOrders", orderService.getOrdersByUserId(userId));
         model.addAttribute("example", "test");
         return "../frontend/userOrder";

@@ -13,6 +13,9 @@
 <main>
     <p>Welcome to orders!</p>
     <a href="/users">Вернуться назад</a>
+    <!--
+     -->
+    <h2 th:text="${'ID пользователя: ' + userId}"></h2>
     <div class="event-card-container">
         <div class="event-card" th:each="order: ${userOrders}">
             <p th:text="${'Номер заказа: ' + order.id}"></p>
