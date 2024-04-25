@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header_fragment.css">
     <title>Онлайн афиша</title>
 </head>
@@ -12,6 +13,9 @@
     <main>
         <p>Welcome to Main Page!</p>
         <p th:text="${example}"></p>
+        <form id="sortForm" method="get" action="/sortEventsByDate">
+            <button id="sortButton" type="submit">Сортировать по дате</button>
+        </form>
         <div class="event-card-container">
             <div class="event-card" th:each="event : ${events}">
                 <div>
@@ -30,22 +34,6 @@
                 <div>
                     <input type="number" min="0"/>
                     <button>Добавить</button>
-                </div>
-            </div>
-        </div>
-        <p>fdshfjkl</p>
-        <div th:each="event : ${eventsSortedByDate}">
-            <div>
-                <div>
-                    <strong><a href="" th:text="${event.name}">Название</a></strong>
-                </div>
-                <div>
-                    <span th:text="${'Дата проведения: ' + event.DateTime}">Дата</span>
-                </div>
-                <div>
-                    <span th:text="${'Организатор: ' + event.Organization}">Организатор</span></div>
-                <div>
-                    <span th:text="${'Цена: ' + event.price + '₽'}">₽300.00</span>
                 </div>
             </div>
         </div>

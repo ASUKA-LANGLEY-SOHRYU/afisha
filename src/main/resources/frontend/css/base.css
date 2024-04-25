@@ -15,20 +15,3 @@ ul {
     list-style-type: none;
     margin: 0;
 }
-
-table {
-    border: 1px solid;
-    border-collapse: collapse;
-}
-
-.event-card {
-    padding: 1em;
-    border: 1px solid;
-    margin: 1em;
-}
-
-.event-card-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}

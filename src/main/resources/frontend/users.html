@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header_fragment.css">
     <title>Онлайн афиша</title>
 </head>
@@ -22,6 +23,7 @@
             <th scope="col">Номер телефона</th>
             <th scope="col">Email</th>
             <th scope="col">Дата рождения</th>
+            <th scope="col">Заказы</th>
         </tr>
         </thead>
         <tbody>
@@ -33,6 +35,9 @@
             <td th:text="${user.phoneNumber}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.birthDate}"></td>
+            <td>
+                <a th:href="${'order/' + user.id}">Перейти к заказам</a>
+            </td>
         </tr>
         </tbody>
     </table>

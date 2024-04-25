@@ -21,9 +21,9 @@ public class Event {
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date DateTime;
+    private Date dateTime;
 
-    private String Organization;
+    private String organization;
 
     @OneToMany(mappedBy = "event")
     private List<Order> orders;

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="css/header_fragment.css">
+    <title>Онлайн афиша</title>
+</head>
+<body>
+<header th:replace="~{fragments/header_fragment :: headFragment}"></header>
+
+<main>
+    <p>Welcome to orders!</p>
+    <a href="/users">Вернуться назад</a>
+    <div class="event-card-container">
+        <div class="event-card" th:each="order: ${userOrders}">
+            <p th:text="${'Номер заказа: ' + order.id}"></p>
+            <p th:text="${'Название мероприятия: ' + order.event.name}"></p>
+            <p th:text="${'Дата и время мероприятия: ' + order.event.dateTime}"></p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

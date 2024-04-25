@@ -21,5 +21,5 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public List<Event> getEventsSortedByDate() { return eventRepository.findAll(Sort.by("DateTime").ascending()); }
+    public List<Event> getEventsSortedByDate() { return eventRepository.findAll(Sort.by("dateTime").descending()); }
 }
