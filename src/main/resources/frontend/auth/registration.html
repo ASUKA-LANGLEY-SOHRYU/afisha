@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+
+    <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('email')}">Ошибка!</div><br/>
+
+        <label for="lastName">Фамилия: </label>
+        <input type="text" name="lastName" id="lastName" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('lastName')}">Ошибка!</div><br/>
+
+        <label for="firstName">Имя: </label>
+        <input type="text" name="firstName" id="firstName" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('firstName')}">Ошибка!</div><br/>
+
+        <label for="patronymic">Отчество: </label>
+        <input type="text" name="patronymic" id="patronymic" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('patronymic')}">Ошибка!</div><br/>
+
+<!--        <label for="birthDate">Дата рождения: </label>-->
+<!--        <input type="date" name="birthDate" id="birthDate" required/>-->
+<!--        <div style="color: red" th:if="${#fields.hasErrors('birthDate')}">Ошибка!</div><br/>-->
+
+        <label for="phoneNumber">Номер телефона: </label>
+        <input type="tel" name="phoneNumber" id="phoneNumber" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('phoneNumber')}">Ошибка!</div><br/>
+
+        <label for="password">Пароль: </label>
+        <input type="password" name="password" id="password" required/>
+        <div style="color: red" th:if="${#fields.hasErrors('password')}">Ошибка!</div><br/>
+
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+
+</body>
+</html>
