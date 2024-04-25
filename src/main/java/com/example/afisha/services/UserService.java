@@ -1,5 +1,7 @@
 package com.example.afisha.services;
 
+import com.example.afisha.models.Event;
+import com.example.afisha.models.Order;
 import com.example.afisha.models.User;
 import com.example.afisha.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +40,10 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username);
+    }
+
+    public List<Order> getUserOrders(){
+        //List<Order> orders = ;
+        return null;
     }
 }

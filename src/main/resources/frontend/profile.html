@@ -11,6 +11,24 @@
 
 <main>
     <p>Welcome to profile!</p>
+    <div>
+        <p th:text="${user.lastName}"></p>
+        <p th:text="${user.firstName}"></p>
+        <p th:text="${user.patronymic}"></p>
+        <p th:text="${user.phoneNumber}"></p>
+        <p th:text="${user.email}"></p>
+        <p th:text="${user.birthDate}"></p>
+    </div>
+    <!--
+    <div class="event-card-container">
+        <p>Посещённые мероприятия</p>
+        <div class="event-card" th:each="order: ${userOrders}">
+            <p th:text="${'Номер заказа: ' + order.id}"></p>
+            <p th:text="${order.event.name}"></p>
+            <p th:text="${order.event.DateTime}"></p>
+        </div>
+    </div>
+    -->
 </main>
 </body>
 </html>

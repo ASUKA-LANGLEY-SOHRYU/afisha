@@ -12,18 +12,40 @@
     <main>
         <p>Welcome to Main Page!</p>
         <p th:text="${example}"></p>
-        <div th:each="event : ${events}">
+        <div class="event-card-container">
+            <div class="event-card" th:each="event : ${events}">
+                <div>
+                    <div>
+                        <strong><a href="" th:text="${event.name}">Название</a></strong>
+                    </div>
+                    <div>
+                        <span th:text="${'Дата проведения: ' + event.DateTime}">Дата</span>
+                    </div>
+                    <div>
+                        <span th:text="${'Организатор: ' + event.Organization}">Организатор</span></div>
+                    <div>
+                        <span th:text="${'Цена: ' + event.price + '₽'}">₽300.00</span>
+                    </div>
+                </div>
+                <div>
+                    <input type="number" min="0"/>
+                    <button>Добавить</button>
+                </div>
+            </div>
+        </div>
+        <p>fdshfjkl</p>
+        <div th:each="event : ${eventsSortedByDate}">
             <div>
                 <div>
                     <strong><a href="" th:text="${event.name}">Название</a></strong>
                 </div>
                 <div>
-                    <span th:text="${event.DateTime}">Дата</span>
+                    <span th:text="${'Дата проведения: ' + event.DateTime}">Дата</span>
                 </div>
                 <div>
-                    <span th:text="${event.Organization}">Организатор</span></div>
+                    <span th:text="${'Организатор: ' + event.Organization}">Организатор</span></div>
                 <div>
-                    <span th:text="${event.price}">₽300.00</span>
+                    <span th:text="${'Цена: ' + event.price + '₽'}">₽300.00</span>
                 </div>
             </div>
         </div>

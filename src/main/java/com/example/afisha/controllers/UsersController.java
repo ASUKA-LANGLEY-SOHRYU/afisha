@@ -16,9 +16,16 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    public String getMainPage(Model model){
+    public String getUsersPage(Model model){
         model.addAttribute("users", userService.getUsersData());
         model.addAttribute("example", "test");
         return "../frontend/users";
+    }
+
+    @GetMapping("/profile")
+    public String getProfilePage(Model model){
+        model.addAttribute("example2", "test2");
+        model.addAttribute("userEvents", userService.getUserOrders());
+        return "../frontend/profile";
     }
 }

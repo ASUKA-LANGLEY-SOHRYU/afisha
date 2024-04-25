@@ -24,6 +24,7 @@ public class MainController {
     public String getMainPage(Model model){
         model.addAttribute("events", eventService.getEventsData());
         model.addAttribute("example", "test");
+        //model.addAttribute("eventsSortedByDate", eventService.getEventsSortedByDate());
         return "../frontend/index";
     }
 
@@ -31,8 +32,4 @@ public class MainController {
     public String getHelloPage(){
         return "../frontend/hello";
     }
-
-    @ModelAttribute("events")
-    public List<Event> getAllEvents() { return eventService.getEventsData(); }
-
 }
