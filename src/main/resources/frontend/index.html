@@ -2,10 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/header_fragment.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/header_fragment.css">
+    <link rel="stylesheet" href="/css/main.css">
     <title>Онлайн афиша</title>
+    <script>
+        /*
+        document.getElementById("sortButton").onclick = function (event) => {
+            event.preventDefault();
+            fetch('/sortEventsByDate').then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        };
+         */
+        document.getElementById("sortForm").addEventListener('click', function (event){
+            event.preventDefault();
+            fetch('/sortEventsByDate').then(response => {
+                if(response.ok){
+                    window.location.reload();
+                }
+            })
+        });
+    </script>
 </head>
 <body>
     <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -13,7 +33,7 @@
     <main>
         <p>Welcome to Main Page!</p>
         <p th:text="${example}"></p>
-        <form id="sortForm" method="get" action="/sortEventsByDate">
+        <form id="sortForm" method="get"> <!-- action="/sortEventsByDate"> -->
             <button id="sortButton" type="submit">Сортировать по дате</button>
         </form>
         <div class="event-card-container">
