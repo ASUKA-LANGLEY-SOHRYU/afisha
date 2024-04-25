@@ -5,6 +5,8 @@ import com.example.afisha.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -13,6 +15,10 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public List<User> getUsersData(){
+        return userRepository.findAll();
     }
 
     public User findByFirstName(String firstname) {

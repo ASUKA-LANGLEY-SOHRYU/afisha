@@ -11,6 +11,31 @@
 
 <main>
     <p>Welcome to users!</p>
+    <p th:text="${example}"></p>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Отчество</th>
+            <th scope="col">Номер телефона</th>
+            <th scope="col">Email</th>
+            <th scope="col">Дата рождения</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.patronymic}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.birthDate}"></td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 </body>
 </html>
