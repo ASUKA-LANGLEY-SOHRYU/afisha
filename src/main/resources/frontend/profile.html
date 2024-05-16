@@ -12,6 +12,11 @@
 
 <main>
     <p>Welcome to profile!</p>
+
+    <p th:text="${user}" />
+    <!--
+
+
     <div>
         <p th:text="${user.lastName}"></p>
         <p th:text="${user.firstName}"></p>
@@ -20,7 +25,7 @@
         <p th:text="${user.email}"></p>
         <p th:text="${user.birthDate}"></p>
     </div>
-    <!--
+
     <div class="event-card-container">
         <p>Посещённые мероприятия</p>
         <div class="event-card" th:each="order: ${userOrders}">
