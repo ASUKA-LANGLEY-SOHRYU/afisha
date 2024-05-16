@@ -46,4 +46,8 @@ public class UserService implements UserDetailsService {
         //List<Order> orders = ;
         return null;
     }
+
+    public User getUserById(Long id){
+        return userRepository.getById(id);
+    }
 }
