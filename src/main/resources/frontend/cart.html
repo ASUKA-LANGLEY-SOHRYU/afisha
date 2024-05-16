@@ -5,6 +5,23 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
     <title>Онлайн афиша</title>
+    <script>
+        function abc(){
+            fetch('/cart/purchase', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'credentials': 'same-origin'
+                },
+                body: "ABC"
+            }).then(response => {
+                if(response.ok){
+                    console.log('Event added to cart successfully');
+                    // Дополнительные действия при успешном добавлении в корзину
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -13,7 +30,7 @@
     <p>Welcome to cart!</p>
 
 
-    <button>Оформить заказ</button>
+    <button onclick="abc()">Оформить заказ</button>
 </main>
 </body>
 </html>
