@@ -23,6 +23,8 @@ public class Order {
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
+    private Integer count;
+
     @Override
     public String toString() {
         return "Order{" +
