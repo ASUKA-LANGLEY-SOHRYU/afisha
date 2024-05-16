@@ -9,20 +9,28 @@
 <body>
 <div class="auth-container">
     <form name="form" method="post" action="/auth/authenticate">
-        <label for="email">Email:</label>
-        <input type="email" name="username" id="email"><br/>
+        <div class="auth-container-field">
+            <label for="email">Email:</label>
+            <input type="email" name="username" id="email"><br/>
+        </div>
 
-        <label for="pass">Пароль: </label>
-        <input type="password" name="password" id="pass"><br/>
+        <div class="auth-container-field">
+            <label for="pass">Пароль: </label>
+            <input type="password" name="password" id="pass"><br/>
+        </div>
 
-        <input type="submit" value="login">
+        <div class="auth-container-field">
+            <input type="submit" value="login">
+        </div>
 
         <div th:if="${param.error}" style="color: red">
             Неправильные имя или пароль
         </div>
     </form>
 
-    <p>Еще нет аккаунта? <a href="/auth/registration">Регистрация</a></p>
+    <div class="auth-container-field">
+        <p>Еще нет аккаунта? <a href="/auth/registration">Регистрация</a></p>
+    </div>
 </div>
 </body>
 </html>

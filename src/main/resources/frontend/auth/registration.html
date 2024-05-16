@@ -3,48 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/auth.css">
     <title>Registration</title>
 </head>
 <body>
 <div class="auth-container">
     <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('email')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('email')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="lastName">Фамилия: </label>
-        <input type="text" name="lastName" id="lastName" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('lastName')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="lastName">Фамилия: </label>
+            <input type="text" name="lastName" id="lastName" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('lastName')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="firstName">Имя: </label>
-        <input type="text" name="firstName" id="firstName" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('firstName')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="firstName">Имя: </label>
+            <input type="text" name="firstName" id="firstName" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('firstName')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="patronymic">Отчество: </label>
-        <input type="text" name="patronymic" id="patronymic" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('patronymic')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="patronymic">Отчество: </label>
+            <input type="text" name="patronymic" id="patronymic" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('patronymic')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="birthDate">Дата рождения (dd.MM.yyyy): </label>
-        <input type="text" name="birthDate" id="birthDate" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('birthDate')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="birthDate">Дата рождения (dd.MM.yyyy): </label>
+            <input type="text" name="birthDate" id="birthDate" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('birthDate')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="phoneNumber">Номер телефона: </label>
-        <input type="tel" name="phoneNumber" id="phoneNumber" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('phoneNumber')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="phoneNumber">Номер телефона: </label>
+            <input type="tel" name="phoneNumber" id="phoneNumber" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('phoneNumber')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="password">Пароль: </label>
-        <input type="password" name="password" id="password" required/>
-        <div style="color: red" th:if="${#fields.hasErrors('password')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="password">Пароль: </label>
+            <input type="password" name="password" id="password" required/>
+            <div style="color: red" th:if="${#fields.hasErrors('password')}">Ошибка!</div><br/>
+        </div>
 
-        <label for="isOrg">Вы организатор: </label>
-        <input type="checkbox" name="isOrganizer" id="isOrg"/>
-        <div style="color: red" th:if="${#fields.hasErrors('isOrganizer')}">Ошибка!</div><br/>
+        <div class="auth-container-field">
+            <label for="isOrg">Вы организатор: </label>
+            <input type="checkbox" name="isOrganizer" id="isOrg"/>
+            <div style="color: red" th:if="${#fields.hasErrors('isOrganizer')}">Ошибка!</div><br/>
+        </div>
 
-        <input type="submit" value="Зарегистрироваться">
+        <div class="auth-container-field">
+            <input type="submit" value="Зарегистрироваться">
+        </div>
     </form>
 
-    <p>Уже есть аккаунт? <a href="/auth/login">Вход</a></p>
+    <div class="auth-container-field">
+        <p>Уже есть аккаунт? <a href="/auth/login">Вход</a></p>
+    </div>
 </div>
 </body>
 </html>
