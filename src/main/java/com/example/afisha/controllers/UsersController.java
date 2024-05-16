@@ -33,8 +33,9 @@ public class UsersController {
         return "../frontend/profile";
     }
 
-    @GetMapping("/users/{id}}")
+    @GetMapping("/users/{id}")
     public String getProfilePage(Model model, @PathVariable("id") Long id){
+        model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("example2", "test2");
         model.addAttribute("userEvents", userService.getUserOrders());
         return "../frontend/profile";

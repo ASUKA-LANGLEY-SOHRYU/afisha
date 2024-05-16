@@ -28,4 +28,14 @@ public class Event {
     @OneToMany(mappedBy = "event")
     private List<Order> orders;
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", price=" + price +
+                ", name='" + name + '\'' +
+                ", dateTime=" + dateTime +
+                ", organization='" + organization + '\'' +
+                '}';
+    }
 }

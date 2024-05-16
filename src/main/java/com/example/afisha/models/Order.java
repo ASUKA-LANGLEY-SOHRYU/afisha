@@ -22,4 +22,12 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", event=" + event +
+                '}';
+    }
 }
