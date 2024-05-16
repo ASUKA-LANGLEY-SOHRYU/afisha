@@ -10,13 +10,13 @@
             fetch('/cart/purchase', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'credentials': 'same-origin'
+                    'Content-Type': 'application/json' /*,
+                    'credentials': 'same-origin' */
                 },
                 body: "ABC"
             }).then(response => {
                 if(response.ok){
-                    console.log('Event added to cart successfully');
+                    console.log('Purchased successfully');
                     // Дополнительные действия при успешном добавлении в корзину
                 }
             });

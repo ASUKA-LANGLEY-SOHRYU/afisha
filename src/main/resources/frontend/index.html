@@ -29,25 +29,23 @@
 
     <script>
         function addToCart(event) {
-            let eventObj = event.target.getAttribute('data-event').replace("Event", "");
-            let eventAttr = JSON.parse(eventObj);
+            let eventAttr = event.target.getAttribute('data-event').replace("Event", "");
 
-            localStorage.setItem('eventExample', eventAttr);
+            let keyValuePairs = eventAttr.slice(1, -1).split(", ");
+            let eventObj = {};
+            keyValuePairs.forEach(function(pair) {
+                let parts = pair.split("=");
+                let key = parts[0].trim();
+                let value = parts[1].trim().replace(/'/g, ""); // Удаляем одинарные кавычки
+                eventObj[key] = value;
+            });
 
-            console.log(JSON.stringify(localStorage.getItem('eventExample')));
-            console.log('event', eventAttr);
-            console.log('eventId', eventAttr.id);
-
-            /*
-
-            let eventCount = document.getElementById(`eventCountInput-${eventAttr.id}`).value;
+            let eventCount = document.getElementById(`eventCountInput-${eventObj["id"]}`).value;
             console.log('eventCount', eventCount);
 
+            console.log(document.getElementById(`eventCountInput-${eventObj["id"]}`));
 
-            console.log(document.getElementById(`eventCountInput-${eventAttr.id}`));
-
-
-            const eventInfo = { event: event, count: eventCount };
+            const eventInfo = { event: eventObj, count: eventCount };
             const cartFromStorage = localStorage.getItem('cart');
             console.log(cartFromStorage);
 
@@ -75,7 +73,6 @@
                 }
             });
 
-             */
         }
     </script>
 </head>
