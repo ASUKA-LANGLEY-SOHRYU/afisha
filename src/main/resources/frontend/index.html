@@ -26,6 +26,58 @@
             })
         });
     </script>
+
+    <script>
+        function addToCart(event) {
+            let eventObj = event.target.getAttribute('data-event').replace("Event", "");
+            let eventAttr = JSON.parse(eventObj);
+
+            localStorage.setItem('eventExample', eventAttr);
+
+            console.log(JSON.stringify(localStorage.getItem('eventExample')));
+            console.log('event', eventAttr);
+            console.log('eventId', eventAttr.id);
+
+            /*
+
+            let eventCount = document.getElementById(`eventCountInput-${eventAttr.id}`).value;
+            console.log('eventCount', eventCount);
+
+
+            console.log(document.getElementById(`eventCountInput-${eventAttr.id}`));
+
+
+            const eventInfo = { event: event, count: eventCount };
+            const cartFromStorage = localStorage.getItem('cart');
+            console.log(cartFromStorage);
+
+            let cart = [];
+            if (cartFromStorage && cartFromStorage.trim() != '') {
+                cart = JSON.parse(cartFromStorage);
+            }
+
+            console.log(cart)
+            cart.push(eventInfo);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            console.log(JSON.stringify(localStorage.getItem('cart')));
+
+            fetch('/addToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(localStorage.getItem('cart'))
+            }).then(response => {
+                if(response.ok){
+                    console.log('Event added to cart successfully');
+                    // Дополнительные действия при успешном добавлении в корзину
+                }
+            });
+
+             */
+        }
+    </script>
 </head>
 <body>
     <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -53,8 +105,9 @@
                 </div>
                 <div>
                     <label>Количество: </label>
-                        <input type="number" min="1" />
-                    <a><button>Добавить</button></a>
+                    <input th:id="${'eventCountInput-' + event.id}" type="number" min="0" />
+                    <button onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
+
                 </div>
             </div>
         </div>
