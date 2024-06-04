@@ -5,6 +5,7 @@ import com.example.afisha.models.User;
 import com.example.afisha.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,16 +30,10 @@ public class CartController {
         return "../frontend/cart";
     }
 
-    @PostMapping("/add")
-    public String addEventToCart(){
-
-        return null;
-    }
-
     @PostMapping("/purchase")
-    public String purchaseCart(@RequestBody String cartDTOs, Authentication authentication){
-        System.out.println(((User) authentication.getPrincipal()).getEmail());
-        //orderService.makeOrders(cartDTOs);
+    public String purchaseCart(@AuthenticationPrincipal User user, @RequestBody List<CartDTO> cartDTOs, Model model) {
+        orderService.makeOrders(user, cartDTOs);
+        model.addAttribute("message", "Заказ успешно оформлен!");
         return "redirect:/cart";
     }
 }

@@ -1,7 +1,9 @@
 package com.example.afisha.services;
 
 import com.example.afisha.models.CartDTO;
+import com.example.afisha.models.Event;
 import com.example.afisha.models.Order;
+import com.example.afisha.models.User;
 import com.example.afisha.repository.EventRepository;
 import com.example.afisha.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -26,16 +29,30 @@ public class OrderService {
     }
 
     @Transactional
-    public void makeOrders(List<CartDTO> cartDTOs){
-        for(var cartDTO : cartDTOs){
-            makeOrder(cartDTO);
+    public void makeOrders(User user, List<CartDTO> cartDTOs) {
+        for (var cartDTO : cartDTOs) {
+            makeOrder(user, cartDTO);
         }
     }
+
     @Transactional
-    public void makeOrder(CartDTO cartDTO){
-        var event = eventRepository.findById(cartDTO.getId());
-        var order = Order.builder()
-                .count(cartDTO.getCount())
-                .build();
+    public void makeOrder(User user, CartDTO cartDTO) {
+        Long eventId = cartDTO.getId();
+        if (eventId != null) {
+            Optional<Event> eventOptional = eventRepository.findById(eventId);
+            if (eventOptional.isPresent()) {
+                Event event = eventOptional.get();
+                var order = Order.builder()
+                        .user(user)
+                        .event(event)
+                        .count(cartDTO.getCount())
+                        .build();
+                orderRepository.save(order);
+            } else {
+                // Обрабатывайте ситуацию, когда мероприятие не найдено
+            }
+        } else {
+            // Обрабатывайте ситуацию, когда идентификатор мероприятия равен null
+        }
     }
 }

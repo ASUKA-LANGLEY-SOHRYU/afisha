@@ -1,36 +1,125 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
-    <title>Онлайн афиша</title>
-    <script>
-        function abc(){
-            fetch('/cart/purchase', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json' /*,
-                    'credentials': 'same-origin' */
-                },
-                body: "ABC"
-            }).then(response => {
-                if(response.ok){
-                    console.log('Purchased successfully');
-                    // Дополнительные действия при успешном добавлении в корзину
-                }
-            });
+    <title>Корзина</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
         }
-    </script>
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
-
 <main>
-    <p>Welcome to cart!</p>
-
-
-    <button onclick="abc()">Оформить заказ</button>
+    <div id="cartContainer"></div>
+    <p id="totalPrice"></p> <!-- Элемент для отображения общей суммы -->
+    <button onclick="checkout()">Оформить заказ</button>
 </main>
+<script>
+    // Получение данных из локального хранилища
+    let cartFromStorage = localStorage.getItem('cart');
+    let cart = JSON.parse(cartFromStorage);
+
+    // Функция для расчета цены
+    function calculatePrice(price, count) {
+        return price * count;
+    }
+
+    // Отображение данных в виде карточек
+    const cartContainer = document.getElementById('cartContainer');
+    const totalPriceElement = document.getElementById('totalPrice');
+
+    function renderCart() {
+        let totalPrice = 0; // Переменная для хранения общей суммы
+
+        if (cart) {
+            cart.forEach(function (item, index) {
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                const title = document.createElement('h2');
+                title.textContent = item.event.name;
+
+                const organizer = document.createElement('h3');
+                organizer.textContent = item.event.organizer;
+
+                const dateTime = document.createElement('p');
+                dateTime.textContent = item.event.dateTime;
+
+                const price = document.createElement('p');
+                const itemPrice = calculatePrice(item.event.price, item.count);
+                price.textContent = 'Итоговая цена: ' + itemPrice;
+                totalPrice += itemPrice; // Увеличиваем общую сумму
+
+                const countInput = document.createElement('input');
+                countInput.type = 'number';
+                countInput.value = item.count;
+                countInput.addEventListener('input', function () {
+                    item.count = this.value;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    price.textContent = 'Итоговая цена: ' + calculatePrice(item.event.price, item.count);
+                    updateTotalPrice();
+                });
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Удалить';
+                removeButton.addEventListener('click', function () {
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                    updateTotalPrice(); // Обновляем общую сумму после удаления
+                });
+
+                card.appendChild(title);
+                card.appendChild(organizer);
+                card.appendChild(dateTime);
+                card.appendChild(price);
+                card.appendChild(countInput);
+                card.appendChild(removeButton);
+
+                cartContainer.appendChild(card);
+            });
+
+            updateTotalPrice(); // Инициализация отображения общей суммы
+        }
+
+        function updateTotalPrice() {
+            totalPrice = 0; // Обнуляем общую сумму перед пересчетом
+            cart.forEach(function (item) {
+                totalPrice += calculatePrice(item.event.price, item.count); // Пересчитываем общую сумму
+            });
+            totalPriceElement.textContent = 'Общая сумма: ' + totalPrice;
+        }
+    }
+
+    renderCart();
+
+    // Функция для оформления заказа
+    function checkout() {
+        const cartFromStorage = localStorage.getItem('cart');
+        const cart = JSON.parse(cartFromStorage);
+
+        fetch('/cart/purchase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cart)
+        }).then(response => {
+            if (response.ok) {
+                console.log('Заказ успешно оформлен!');
+                localStorage.removeItem('cart');
+                renderCart();
+            } else {
+                console.error('Ошибка при оформлении заказа');
+            }
+        });
+    }
+</script>
 </body>
 </html>

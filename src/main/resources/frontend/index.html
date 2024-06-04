@@ -64,19 +64,6 @@
             localStorage.setItem('cart', JSON.stringify(cart));
 
             console.log(JSON.stringify(localStorage.getItem('cart')));
-
-            fetch('/cart/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(localStorage.getItem('cart'))
-            }).then(response => {
-                if (response.ok) {
-                    console.log('Event added to cart successfully');
-                    // Дополнительные действия при успешном добавлении в корзину
-                }
-            });
         }
 
     </script>
@@ -115,7 +102,7 @@
                 </div>
             </div>
             <div>
-                <label>Количество: </label>
+                <label>Количество билетов</label>
                 <input th:id="${'eventCountInput-' + event.id}" type="number" min="0"/>
                 <button onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
 
