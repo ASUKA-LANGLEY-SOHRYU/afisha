@@ -38,6 +38,8 @@ public class ApplicationConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // BCryptPasswordEncoder
+        // new BCryptPasswordEncoder()
+        // NoOpPasswordEncoder.getInstance()
+        return NoOpPasswordEncoder.getInstance();
     }
 }

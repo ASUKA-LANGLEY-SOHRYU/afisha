@@ -22,4 +22,8 @@ public class EventService {
     }
 
     public List<Event> getEventsSortedByDate() { return eventRepository.findAll(Sort.by("dateTime").ascending()); }
+
+    public void createEvent(Event event){
+        eventRepository.save(event);
+    }
 }

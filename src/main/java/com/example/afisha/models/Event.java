@@ -2,6 +2,7 @@ package com.example.afisha.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
 
@@ -21,9 +22,12 @@ public class Event {
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date dateTime;
 
-    private String organization;
+    @ManyToOne
+    @JoinColumn(name = "organization_id", referencedColumnName = "id")
+    private User organization;
 
     @OneToMany(mappedBy = "event")
     private List<Order> orders;

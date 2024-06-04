@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
 </head>
 <body>
-    <header th:fragment="headFragment">
-        <div class="header">
-            <nav>
-                <ul class="header-nav-ul">
-                    <li>
-                        <a href="/">Главная</a>
-                    </li>
-                    <li>
-                        <a href="/users">Пользователи</a>
-                    </li>
-                    <li>
-                        <a href="/cart">Корзина</a>
-                    </li>
-                    <li>
-                        <a href="/users/me">Профиль</a>
-                    </li>
-                    <li>
-                        <a href="/logout">Выход</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header th:fragment="headFragment">
+    <div class="header">
+        <nav>
+            <ul class="header-nav-ul">
+                <li>
+                    <a href="/">Главная</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/users">Пользователи</a>
+                </li>
+                <li>
+                    <a href="/addEvent">Добавить мероприятие</a>
+                </li>
+                <li>
+                    <a href="/cart">Корзина</a>
+                </li>
+                <li>
+                    <a href="/users/me">Профиль</a>
+                </li>
+                <li>
+                    <a href="/logout">Выход</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 </body>
 </html>

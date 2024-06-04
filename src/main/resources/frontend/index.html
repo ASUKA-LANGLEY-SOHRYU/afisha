@@ -80,6 +80,12 @@
         }
 
     </script>
+
+    <script>
+        function addEventRedirect() {
+            window.location.href = "/addEvent";
+        }
+    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -90,6 +96,9 @@
     <form id="sortForm" method="get"> <!-- action="/sortEventsByDate"> -->
         <button id="sortButton" type="submit">Сортировать по дате</button>
     </form>
+
+    <button id="addEventButton" onclick="addEventRedirect">Создать мероприятие</button>
+
     <div class="event-card-container">
         <div class="event-card" th:each="event : ${events}">
             <div>

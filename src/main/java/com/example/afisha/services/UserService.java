@@ -4,11 +4,13 @@ import com.example.afisha.models.Event;
 import com.example.afisha.models.Order;
 import com.example.afisha.models.User;
 import com.example.afisha.repository.UserRepository;
+import com.example.afisha.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsersData(){
+    public List<User> getUsersData() {
         return userRepository.findAll();
     }
 
@@ -42,12 +44,17 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(username);
     }
 
-    public List<Order> getUserOrders(){
+    public List<Order> getUserOrders() {
         //List<Order> orders = ;
         return null;
     }
 
-    public User getUserById(Long id){
+    public User getUserById(Long id) {
         return userRepository.getById(id);
+    }
+
+    public Object getCurrentUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getMyUser();
     }
 }
