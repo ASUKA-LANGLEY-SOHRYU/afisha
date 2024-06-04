@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/main.css">
+
     <link rel="stylesheet" href="/css/header_fragment.css">
     <title>Онлайн афиша</title>
 </head>
@@ -14,26 +14,24 @@
     <p>Welcome to profile!</p>
 
     <!--
-
     <p th:text="${user}" />
 
-    <div>
-        <p th:text="${user.lastName}"></p>
-        <p th:text="${user.firstName}"></p>
-        <p th:text="${user.patronymic}"></p>
-        <p th:text="${user.phoneNumber}"></p>
-        <p th:text="${user.email}"></p>
-        <p th:text="${user.birthDate}"></p>
-    </div>
-
-    <div class="event-card-container">
-        <p>Посещённые мероприятия</p>
-        <div class="event-card" th:each="order: ${userOrders}">
-            <p th:text="${'Номер заказа: ' + order.id}"></p>
-            <p th:text="${order.event.name}"></p>
-            <p th:text="${order.event.DateTime}"></p>
+        <div>
+            <p th:text="${user.lastName}"></p>
+            <p th:text="${user.firstName}"></p>
+            <p th:text="${user.patronymic}"></p>
+            <p th:text="${user.phoneNumber}"></p>
+            <p th:text="${user.email}"></p>
+            <p th:text="${user.birthDate}"></p>
         </div>
-    </div>
+        <div class="event-card-container">
+            <p>Посещённые мероприятия</p>
+            <div class="event-card" th:each="order: ${userOrders}">
+                <p th:text="${'Номер заказа: ' + order.id}"></p>
+                <p th:text="${order.event.name}"></p>
+                <p th:text="${order.event.DateTime}"></p>
+            </div>
+        </div>
     -->
 </main>
 </body>

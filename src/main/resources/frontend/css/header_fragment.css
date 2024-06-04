@@ -1,6 +1,7 @@
 .header {
-    background-color: #bbe1fa;
     padding: 1em 0;
+    background: linear-gradient(0.25turn, #7800da, #da0078);
+    color: #ffffff;
 }
 
 .header-nav-ul {
@@ -11,8 +12,9 @@
 
 .header-nav-ul a {
     text-decoration: none;
+    color: #ffffff;
 }
 
 .header-nav-ul a:visited {
-    color: black;
+    color: #ffffff;
 }

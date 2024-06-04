@@ -8,28 +8,30 @@
 </head>
 <body>
 <div class="auth-container">
-    <form name="form" method="post" action="/auth/authenticate">
-        <div class="auth-container-field">
-            <label for="email">Email:</label>
-            <input type="email" name="username" id="email"><br/>
-        </div>
-
-        <div class="auth-container-field">
-            <label for="pass">Пароль: </label>
-            <input type="password" name="password" id="pass"><br/>
-        </div>
-
-        <div class="auth-container-field">
-            <input type="submit" value="Войти">
-        </div>
-
-        <div th:if="${param.error}" style="color: red">
-            Неправильные имя или пароль
-        </div>
-    </form>
-
-    <div class="auth-container-field">
+    <div class="left-column-auth">
+        <h1>Онлайн афиша</h1>
         <p>Еще нет аккаунта? <a href="/auth/registration">Регистрация</a></p>
+    </div>
+    <div class="right-column-auth">
+        <form name="form" method="post" action="/auth/authenticate">
+            <div class="auth-container-field">
+                <label for="email">Email</label>
+                <input type="email" name="username" id="email"><br/>
+            </div>
+
+            <div class="auth-container-field">
+                <label for="pass">Пароль</label>
+                <input type="password" name="password" id="pass"><br/>
+            </div>
+
+            <div class="auth-container-field auth-submit">
+                <input type="submit" value="Войти">
+            </div>
+
+            <div th:if="${param.error}" style="color: red">
+                Неправильные имя или пароль
+            </div>
+        </form>
     </div>
 </div>
 </body>

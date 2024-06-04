@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
-    <link rel="stylesheet" href="/css/main.css">
+
     <title>Онлайн афиша</title>
     <script>
         /*
@@ -17,10 +17,10 @@
             })
         };
          */
-        document.getElementById("sortForm").addEventListener('click', function (event){
+        document.getElementById("sortForm").addEventListener('click', function (event) {
             event.preventDefault();
             fetch('/sortEventsByDate').then(response => {
-                if(response.ok){
+                if (response.ok) {
                     window.location.reload();
                 }
             })
@@ -33,7 +33,7 @@
 
             let keyValuePairs = eventAttr.slice(1, -1).split(", ");
             let eventObj = {};
-            keyValuePairs.forEach(function(pair) {
+            keyValuePairs.forEach(function (pair) {
                 let parts = pair.split("=");
                 let key = parts[0].trim();
                 let value = parts[1].trim().replace(/'/g, ""); // Удаляем одинарные кавычки
@@ -45,7 +45,7 @@
 
             console.log(document.getElementById(`eventCountInput-${eventObj["id"]}`));
 
-            const eventInfo = { event: eventObj, count: eventCount };
+            const eventInfo = {event: eventObj, count: eventCount};
             const cartFromStorage = localStorage.getItem('cart');
             console.log(cartFromStorage);
 
@@ -54,60 +54,65 @@
                 cart = JSON.parse(cartFromStorage);
             }
 
-            console.log(cart)
+            console.log(cart);
+
+            // Удаление старого мероприятия
+            cart = cart.filter(item => item.event.id !== eventObj.id);
+
+            // Добавление нового мероприятия
             cart.push(eventInfo);
             localStorage.setItem('cart', JSON.stringify(cart));
 
             console.log(JSON.stringify(localStorage.getItem('cart')));
 
-            fetch('/addToCart', {
+            fetch('/cart/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(localStorage.getItem('cart'))
             }).then(response => {
-                if(response.ok){
+                if (response.ok) {
                     console.log('Event added to cart successfully');
                     // Дополнительные действия при успешном добавлении в корзину
                 }
             });
-
         }
+
     </script>
 </head>
 <body>
-    <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
+<header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 
-    <main>
-        <p>Welcome to Main Page!</p>
-        <p th:text="${example}"></p>
-        <form id="sortForm" method="get"> <!-- action="/sortEventsByDate"> -->
-            <button id="sortButton" type="submit">Сортировать по дате</button>
-        </form>
-        <div class="event-card-container">
-            <div class="event-card" th:each="event : ${events}">
+<main>
+    <p>Welcome to Main Page!</p>
+    <p th:text="${example}"></p>
+    <form id="sortForm" method="get"> <!-- action="/sortEventsByDate"> -->
+        <button id="sortButton" type="submit">Сортировать по дате</button>
+    </form>
+    <div class="event-card-container">
+        <div class="event-card" th:each="event : ${events}">
+            <div>
                 <div>
-                    <div>
-                        <strong><a href="" th:text="${event.name}">Название</a></strong>
-                    </div>
-                    <div>
-                        <span th:text="${'Дата проведения: ' + event.DateTime}">Дата</span>
-                    </div>
-                    <div>
-                        <span th:text="${'Организатор: ' + event.Organization}">Организатор</span></div>
-                    <div>
-                        <span th:text="${'Цена: ' + event.price + '₽'}">₽300.00</span>
-                    </div>
+                    <strong><a href="" th:text="${event.name}">Название</a></strong>
                 </div>
                 <div>
-                    <label>Количество: </label>
-                    <input th:id="${'eventCountInput-' + event.id}" type="number" min="0" />
-                    <button onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
-
+                    <span th:text="${'Дата проведения: ' + event.DateTime}">Дата</span>
+                </div>
+                <div>
+                    <span th:text="${'Организатор: ' + event.Organization}">Организатор</span></div>
+                <div>
+                    <span th:text="${'Цена: ' + event.price + '₽'}">₽300.00</span>
                 </div>
             </div>
+            <div>
+                <label>Количество: </label>
+                <input th:id="${'eventCountInput-' + event.id}" type="number" min="0"/>
+                <button onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
+
+            </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 </html>

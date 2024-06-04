@@ -1,11 +1,73 @@
+/* CSS */
 .auth-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    flex-direction: column;
+    height: 100vh;
 }
 
 .auth-container-field {
     padding: 0.5em;
+    display: flex;
+}
+
+.auth-container-field label {
+    padding-right: 1em;
+}
+
+.auth-container-header {
+    background-color: #00c3da;
+    color: #ffffff;
+    padding: 0.5em;
+    border-bottom: 1px solid #2e2e2e;
+}
+
+.auth-container-field input[type="email"],
+.auth-container-field input[type="password"] {
+    background-color: #ffffff;
+    border: 1px solid #2e2e2e;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.auth-container-field input[type="submit"] {
+    background-color: #da0078;
+    color: #ffffff;
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.auth-container-field input[type="submit"]:hover {
+    background-color: #7800da;
+}
+
+.auth-submit {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-container-field input:not([type="checkbox"]) {
+    width: 100%;
+}
+
+.left-column-auth {
+    color: #ffffff;
+    width: 40%;
+    background: linear-gradient(#7800da, #da0078);
+}
+
+.left-column-auth a {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.right-column-auth {
+    width: 60%;
+}
+
+.left-column-auth, .right-column-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
