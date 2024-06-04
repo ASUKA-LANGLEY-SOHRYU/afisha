@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @RequestMapping("/auth")
@@ -38,12 +40,19 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String register(@ModelAttribute("user") UserForm user,
-                           BindingResult bindingResult){
+                           BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (user.getIsOrganizer() == null) {
+            user.setIsOrganizer(false);
+        }
+
         userFormValidator.validate(user, bindingResult);
         if(bindingResult.hasErrors())
             return "auth/registration";
 
         authenticationService.register(userFormMapper.map(user));
+
+        redirectAttributes.addFlashAttribute("registrationSuccess", true);
+
         return "redirect:/auth/login";
     }
 }
