@@ -1,7 +1,7 @@
 html {
     font-family: Montserrat;
     margin: 0;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url("https://img.freepik.com/free-photo/grungy-gray-marble-textured-background_53876-108405.jpg?t=st=1717518666~exp=1717522266~hmac=7f8f457ce5f44195ed76372c8057965b3729f9e3f0cdd97984dec6a1e2734afd&w=1380");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("https://img.freepik.com/free-photo/grungy-gray-marble-textured-background_53876-108405.jpg?t=st=1717518666~exp=1717522266~hmac=7f8f457ce5f44195ed76372c8057965b3729f9e3f0cdd97984dec6a1e2734afd&w=1380");
 }
 
 body {
@@ -30,18 +30,20 @@ ul {
     margin: 0;
 }
 
+table, thead, tr {
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
 table {
     background-color: #ffffff;
-    border: 1px solid #000000;
-    /*border-collapse: collapse;*/
+    border-collapse: collapse;
+    width: 100%;
 }
 
-thead {
-    border: 1px solid #000000;
-}
-
-tr {
-    border: 1px solid #000000;
+td, th {
+    padding: 0.5em;
+    text-align: left;
 }
 
 .event-card {

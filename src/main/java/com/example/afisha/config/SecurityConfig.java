@@ -35,6 +35,12 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/")
                         .failureForwardUrl("/auth/login?error")
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                )
                 .cors(httpSecurityCorsConfigurer -> {
                     httpSecurityCorsConfigurer.configurationSource(configurationSource);
                 })
