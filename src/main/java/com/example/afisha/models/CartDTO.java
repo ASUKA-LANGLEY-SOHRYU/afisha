@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CartDTO {
-    private Long id;
     private Integer count;
+
+    private Event event;
 }

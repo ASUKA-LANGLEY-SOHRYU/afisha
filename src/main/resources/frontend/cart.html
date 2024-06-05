@@ -6,24 +6,17 @@
     <link rel="stylesheet" href="/css/cart.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
     <title>Корзина</title>
-    <style>
-        .card {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 <main>
     <div class="cart-name-container">
-        <h3>Корзина</h3>
-            <p>* товаров</p>
-        </div>
-        <div id="cartContainer"></div>
-        <p id="totalPrice"></p> <!-- Элемент для отображения общей суммы -->
-    <button onclick="checkout()">Оформить заказ</button>
+        <h2>Корзина</h2>
+        <p>Общее количество товаров: 0</p>
+    </div>
+    <div id="cart-event-card-container"></div>
+    <p id="totalPrice"></p> <!-- Элемент для отображения общей суммы -->
+    <button class="cart-purchase-button" onclick="checkout()">Оформить заказ</button>
 </main>
 <script>
     // Получение данных из локального хранилища
@@ -36,7 +29,7 @@
     }
 
     // Отображение данных в виде карточек
-    const cartContainer = document.getElementById('cartContainer');
+    const cartContainer = document.getElementById('cart-event-card-container');
     const totalPriceElement = document.getElementById('totalPrice');
 
     function renderCart() {
@@ -45,13 +38,10 @@
         if (cart) {
             cart.forEach(function (item, index) {
                 const card = document.createElement('div');
-                card.classList.add('card');
+                card.classList.add('cart-card');
 
                 const title = document.createElement('h2');
                 title.textContent = item.event.name;
-
-                const organizer = document.createElement('h3');
-                organizer.textContent = item.event.organizer;
 
                 const dateTime = document.createElement('p');
                 dateTime.textContent = item.event.dateTime;
@@ -60,6 +50,9 @@
                 const itemPrice = calculatePrice(item.event.price, item.count);
                 price.textContent = 'Итоговая цена: ' + itemPrice;
                 totalPrice += itemPrice; // Увеличиваем общую сумму
+
+                const countContainer = document.createElement('div');
+                countContainer.classList.add('cart-count-container');
 
                 const countInput = document.createElement('input');
                 countInput.type = 'number';
@@ -73,6 +66,7 @@
 
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Удалить';
+                removeButton.classList.add('cart-delete-button');
                 removeButton.addEventListener('click', function () {
                     cart.splice(index, 1);
                     localStorage.setItem('cart', JSON.stringify(cart));
@@ -80,18 +74,19 @@
                     updateTotalPrice(); // Обновляем общую сумму после удаления
                 });
 
+                countContainer.appendChild(countInput);
+                countContainer.appendChild(removeButton);
+
                 card.appendChild(title);
-                card.appendChild(organizer);
                 card.appendChild(dateTime);
                 card.appendChild(price);
-                card.appendChild(countInput);
-                card.appendChild(removeButton);
+                card.appendChild(countContainer);
 
                 cartContainer.appendChild(card);
             });
 
             const cartNameContainer = document.querySelector('.cart-name-container');
-            cartNameContainer.querySelector('p').textContent = `количество товаров: ${cart.length}`;
+            cartNameContainer.querySelector('p').textContent = `Общее количество товаров: ${cart.length}`;
 
             updateTotalPrice(); // Инициализация отображения общей суммы
         }
@@ -107,10 +102,42 @@
 
     renderCart();
 
+    function formatDate(date) {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear(),
+            hour = '' + d.getHours(),
+            minute = '' + d.getMinutes(),
+            second = '' + d.getSeconds(),
+            millisecond = '' + d.getMilliseconds();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+        if (hour.length < 2)
+            hour = '0' + hour;
+        if (minute.length < 2)
+            minute = '0' + minute;
+        if (second.length < 2)
+            second = '0' + second;
+        while (millisecond.length < 3)
+            millisecond = '0' + millisecond;
+
+        return [year, month, day].join('-') + 'T' + [hour, minute, second].join(':') + '.' + millisecond + 'Z';
+    }
+
     // Функция для оформления заказа
     function checkout() {
         const cartFromStorage = localStorage.getItem('cart');
         const cart = JSON.parse(cartFromStorage);
+
+        cart.forEach(item => {
+            item.event.dateTime = formatDate(item.event.dateTime);
+        });
+
+        console.log(cart);
 
         fetch('/cart/purchase', {
             method: 'POST',

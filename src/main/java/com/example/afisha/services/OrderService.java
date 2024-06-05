@@ -19,40 +19,35 @@ public class OrderService {
 
     private final EventRepository eventRepository;
 
+    private final UserService userService;
+
     @Autowired
-    public OrderService(OrderRepository orderRepository, EventRepository eventRepository) {this.orderRepository = orderRepository;
+    public OrderService(OrderRepository orderRepository, EventRepository eventRepository, UserService userService) {
+        this.orderRepository = orderRepository;
         this.eventRepository = eventRepository;
+        this.userService = userService;
     }
 
-    public List<Order> getOrdersByUserId(long userId){
+    public List<Order> getOrdersByUserId(long userId) {
         return orderRepository.findOrdersByUserId(userId);
     }
 
     @Transactional
-    public void makeOrders(User user, List<CartDTO> cartDTOs) {
+    public void makeOrders(List<CartDTO> cartDTOs) {
         for (var cartDTO : cartDTOs) {
-            makeOrder(user, cartDTO);
+            makeOrder(cartDTO);
         }
     }
 
     @Transactional
-    public void makeOrder(User user, CartDTO cartDTO) {
-        Long eventId = cartDTO.getId();
-        if (eventId != null) {
-            Optional<Event> eventOptional = eventRepository.findById(eventId);
-            if (eventOptional.isPresent()) {
-                Event event = eventOptional.get();
-                var order = Order.builder()
-                        .user(user)
-                        .event(event)
-                        .count(cartDTO.getCount())
-                        .build();
-                orderRepository.save(order);
-            } else {
-                // Обрабатывайте ситуацию, когда мероприятие не найдено
-            }
-        } else {
-            // Обрабатывайте ситуацию, когда идентификатор мероприятия равен null
-        }
+    public void makeOrder(CartDTO cartDTO) {
+        User currentUser = userService.getCurrentUser();
+        Event event = cartDTO.getEvent();
+        Order order = Order.builder()
+                .user(currentUser)
+                .event(event)
+                .count(cartDTO.getCount())
+                .build();
+        orderRepository.save(order);
     }
 }

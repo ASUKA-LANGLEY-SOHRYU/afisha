@@ -22,7 +22,7 @@ public class Event {
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date dateTime;
 
     @ManyToOne

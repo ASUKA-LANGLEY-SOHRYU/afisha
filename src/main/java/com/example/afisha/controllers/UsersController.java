@@ -27,7 +27,7 @@ public class UsersController {
 
     @GetMapping("/users/me")
     public String getMyProfilePage(Model model, Authentication authentication){
-        model.addAttribute("user", (User) authentication.getPrincipal());
+        model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("example2", "test2");
         model.addAttribute("userEvents", userService.getUserOrders());
         return "../frontend/profile";

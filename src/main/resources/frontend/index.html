@@ -44,6 +44,9 @@
             localStorage.setItem('cart', JSON.stringify(cart));
 
             console.log(JSON.stringify(localStorage.getItem('cart')));
+
+            document.getElementById(`add-to-cart-button-${eventObj["id"]}`).style.backgroundColor = 'green';
+            document.getElementById(`add-to-cart-button-${eventObj["id"]}`).textContent = 'Добавлено';
         }
 
     </script>
@@ -84,7 +87,7 @@
             <div>
                 <label>Количество билетов</label>
                 <input th:id="${'eventCountInput-' + event.id}" type="number" min="0"/>
-                <button onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
+                <button th:id="${'add-to-cart-button-' + event.id}"  onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
             </div>
         </div>
     </div>
