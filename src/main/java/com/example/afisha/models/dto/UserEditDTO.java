@@ -14,5 +14,4 @@ public class UserEditDTO {
     private String phoneNumber;
     private LocalDate birthDate;
     private String email;
-    private String password;
 }

@@ -24,12 +24,10 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getUsersData() {
@@ -82,8 +80,6 @@ public class UserService implements UserDetailsService {
             user.setPhoneNumber(userEdit.getPhoneNumber());
         if(userEdit.getBirthDate() != null)
             user.setBirthDate(Timestamp.from(Instant.from(userEdit.getBirthDate())));
-        if(userEdit.getPassword() != null)
-            user.setPassword(passwordEncoder.encode(userEdit.getPassword()));
         userRepository.save(user);
     }
 }

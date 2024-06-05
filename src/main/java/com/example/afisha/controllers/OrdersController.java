@@ -22,7 +22,7 @@ public class OrdersController {
         this.userService = userService;
     }
 
-    @GetMapping("/order/{userId}")
+    @GetMapping("/order/{userId}") //TODO: fix to /orders/...
     public String getMainPage(@PathVariable("userId") long userId, Model model) {
         User user = userService.getUserById(userId);
         model.addAttribute("user", user);
@@ -36,7 +36,7 @@ public class OrdersController {
         // тут класть все заказы текущего пользователя
         User currentUser = userService.getCurrentUser();
         long userId = currentUser.getId();
-        model.addAttribute("userOrders", orderService.getOrdersByUserId(userId));
+        model.addAttribute("orders", orderService.getOrdersByUserId(userId));
         return "../frontend/orders";
     }
 
