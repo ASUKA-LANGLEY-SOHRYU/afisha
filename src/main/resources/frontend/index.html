@@ -20,9 +20,7 @@
                 let parts = pair.split("=");
                 let key = parts[0].trim();
                 let value = parts[1].trim().replace(/'/g, ""); // Удаляем одинарные кавычки
-                if (key === 'id' || key === 'name' || key === 'price' || key === 'dateTime') {
-                    eventObj[key] = value;
-                }
+                eventObj[key] = value;
             });
 
             let eventCount = document.getElementById(`eventCountInput-${eventObj["id"]}`).value;
@@ -30,7 +28,7 @@
 
             console.log(document.getElementById(`eventCountInput-${eventObj["id"]}`));
 
-            const eventInfo = {event: eventObj, count: eventCount};
+            const eventInfo = {event: eventObj, count: eventCount > 0 ? eventCount : 1};
             const cartFromStorage = localStorage.getItem('cart');
             console.log(cartFromStorage);
 
@@ -57,7 +55,7 @@
 
     <script>
         function addEventRedirect() {
-            window.location.href = "/addEvent";
+            window.location.href = "/events/add";
         }
     </script>
 </head>

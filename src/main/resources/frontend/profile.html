@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
-
     <link rel="stylesheet" href="/css/header_fragment.css">
-    <title>Онлайн афиша</title>
+    <title>Профиль</title>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 
 <main>
     <h2 th:text="${'Профиль пользователя №' + user.id}"/>
-
-    <div>
-        <div></div>
-        <p th:text="${user.lastName}"/>
-        <p th:text="${user.firstName}"/>
-        <p th:text="${user.patronymic}"/>
-        <p th:text="${user.phoneNumber}"/>
-        <p th:text="${user.birthDate}"/>
-        <p th:text="${user.email}"/>
-        <p th:text="${user.password}"/>
-    </div>
+    <!--
+    lastName, firstName, patronymic, phoneNumber, birthDate, email, password
+    -->
+    <form name="form" method="post" th:action="${'/users/edit/' + user.id}">
+        <div class="profile-container">
+            <div th:each="field : ${fields}">
+                <div class="profile-container-field">
+                    <label th:text="${field}">Field</label>
+                    <input th:disabled="${editMode}" name="${field}" id="${field}"><br/>
+                </div>
+            </div>
+            <button th:if="${editMode}" th:text="Редактировать" th:disabled="${editMode}" type="submit"></button>
+        </div>
+    </form>
 </main>
 </body>
 </html>
