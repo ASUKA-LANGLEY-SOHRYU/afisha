@@ -28,6 +28,10 @@ public class OrderService {
         this.userService = userService;
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
     public List<Order> getOrdersByUserId(long userId) {
         return orderRepository.findOrdersByUserId(userId);
     }

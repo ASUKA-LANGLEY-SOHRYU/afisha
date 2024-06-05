@@ -13,7 +13,7 @@
 
             console.log("eventAttr", eventAttr);
 
-            let keyValuePairs = eventAttr.slice(1, -1).split(", ");
+            let keyValuePairs = eventAttr.slice(4, -1).split(", ");
             console.log("keyValuePairs", keyValuePairs);
             let eventObj = {};
             keyValuePairs.forEach(function (pair) {
@@ -96,32 +96,5 @@
         </div>
     </div>
 </main>
-
-<script>
-    function sortEvents(event) {
-        event.preventDefault();
-        console.log("test");
-        fetch('/sortEventsByDate', {
-            method: 'GET'
-        })
-            .then(response => {
-                if (response.ok) {
-                    // window.location.reload();
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-    document.getElementById("sortForm").addEventListener('click', function (event) {
-        event.preventDefault();
-        fetch('/sortEventsByDate').then(response => {
-            if (response.ok) {
-                window.location.reload();
-            }
-        })
-    });
-</script>
 </body>
 </html>

@@ -33,14 +33,17 @@ public class OrdersController {
 
     @GetMapping("/orders/my")
     public String getMyOrdersPage(Model model){
-        // тут класть все заказы организатора
+        // тут класть все заказы текущего пользователя
+        User currentUser = userService.getCurrentUser();
+        long userId = currentUser.getId();
+        model.addAttribute("userOrders", orderService.getOrdersByUserId(userId));
         return "../frontend/orders";
     }
 
     @GetMapping("/orders")
     public String getOrdersPage(Model model){
         // тут класть все заказы
-        model.addAttribute("orders", orderService.getOrdersByUserId(1));
+        model.addAttribute("userOrders", orderService.getAllOrders());
         return "../frontend/orders";
     }
 }

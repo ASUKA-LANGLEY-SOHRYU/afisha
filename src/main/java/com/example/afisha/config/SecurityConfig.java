@@ -51,7 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
                         // .requestMatchers("/addEvent").hasAnyRole("ORGANIZER", "ADMIN")
                         // .requestMatchers("/users").hasRole("ADMIN")
-                        // .requestMatchers("/orders/**").hasAnyRole("ADMIN", "ORGANIZER")
+                        // .requestMatchers("/orders").hasAnyRole("ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedHandler(accessDeniedHandler())
