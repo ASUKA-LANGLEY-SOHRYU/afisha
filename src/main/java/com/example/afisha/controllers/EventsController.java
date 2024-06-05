@@ -28,7 +28,6 @@ public class EventsController {
     @GetMapping("/addEvent")
     public String showAddEvent(Model model){
         model.addAttribute("event", new Event());
-        model.addAttribute("example", "test");
         return "../frontend/addEvent";
     }
 

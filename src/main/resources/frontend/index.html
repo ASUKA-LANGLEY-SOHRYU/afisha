@@ -59,7 +59,6 @@
 
 <main>
     <p>Добро пожаловать на главную страницу!</p>
-    <p th:text="${example}"></p>
     <!--
     -->
     <form id="sortForm" method="get">
@@ -68,7 +67,7 @@
     <button id="addEventButton" onclick="addEventRedirect()">Создать мероприятие</button>
 
     <div class="event-card-container">
-        <div class="event-card" th:each="event : ${events}">
+        <div class="event-card" th:each="event : ${events.content}">
             <div>
                 <div>
                     <strong><a href="" th:text="${event.name}">Название</a></strong>

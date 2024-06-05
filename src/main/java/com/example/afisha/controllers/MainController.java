@@ -23,15 +23,12 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String getMainPage(Model model){
-        model.addAttribute("events", eventService.getEventsData());
-        model.addAttribute("example", "test");
-        return "../frontend/index";
-    }
-
-    @GetMapping("/sortEventsByDate")
-    public String sortEventsByDate(Model model){
-        model.addAttribute("events", eventService.getEventsSortedByDate());
+    public String getMainPage(Model model,
+                              @RequestParam(defaultValue = "0") Integer page,
+                              @RequestParam(defaultValue = "10") Integer size,
+                              @RequestParam(required = false) String sortFieldName,
+                              @RequestParam(required = false) String sortDirection){
+        model.addAttribute("events", eventService.findAll(page, size, sortFieldName, sortDirection));
         return "../frontend/index";
     }
 
