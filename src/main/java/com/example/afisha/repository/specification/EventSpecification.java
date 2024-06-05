@@ -29,10 +29,10 @@ public class EventSpecification {
             }
 
             if (esf.getDateFrom() != null){
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("date"), esf.getDateFrom()));
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dateTime"), esf.getDateFrom()));
             }
             if (esf.getDateTo() != null){
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("date"), esf.getDateTo()));
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("dateTime"), esf.getDateTo()));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
