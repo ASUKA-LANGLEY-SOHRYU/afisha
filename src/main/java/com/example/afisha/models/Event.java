@@ -1,5 +1,6 @@
 package com.example.afisha.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,14 +24,16 @@ public class Event {
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateTime;
 
     @ManyToOne
     @JoinColumn(name = "organization_id", referencedColumnName = "id")
+    @JsonIgnore
     private User organization;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<Order> orders;
 
     @Override

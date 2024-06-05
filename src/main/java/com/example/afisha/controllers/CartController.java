@@ -31,8 +31,8 @@ public class CartController {
     }
 
     @PostMapping("/purchase")
-    public String purchaseCart(@AuthenticationPrincipal User user, @RequestBody List<CartDTO> cartDTOs, Model model) {
-        orderService.makeOrders(user, cartDTOs);
+    public String purchaseCart(@RequestBody List<CartDTO> cartDTOs, Model model) {
+        orderService.makeOrders(cartDTOs);
         model.addAttribute("message", "Заказ успешно оформлен!");
         return "redirect:/cart";
     }

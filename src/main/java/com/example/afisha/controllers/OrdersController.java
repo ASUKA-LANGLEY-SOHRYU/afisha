@@ -4,6 +4,7 @@ import com.example.afisha.models.User;
 import com.example.afisha.services.OrderService;
 import com.example.afisha.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,5 +29,18 @@ public class OrdersController {
         model.addAttribute("userOrders", orderService.getOrdersByUserId(userId));
         model.addAttribute("example", "test");
         return "../frontend/userOrder";
+    }
+
+    @GetMapping("/orders/my")
+    public String getMyOrdersPage(Model model){
+        // тут класть все заказы организатора
+        return "../frontend/orders";
+    }
+
+    @GetMapping("/orders")
+    public String getOrdersPage(Model model){
+        // тут класть все заказы
+        model.addAttribute("orders", orderService.getOrdersByUserId(1));
+        return "../frontend/orders";
     }
 }

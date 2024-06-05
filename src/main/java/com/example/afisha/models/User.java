@@ -1,5 +1,6 @@
 package com.example.afisha.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +44,7 @@ public class User implements UserDetails {
     private Date birthDate;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Order> orders;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
