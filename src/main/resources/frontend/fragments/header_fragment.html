@@ -16,8 +16,14 @@
                 <li sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="/users">Пользователи</a>
                 </li>
-                <li>
+                <li sec:authorize="hasRole('ROLE_ORGANIZER')">
                     <a href="/addEvent">Добавить мероприятие</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ORGANIZER')">
+                    <a href="/orders/my">Мои заказы</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/orders">Заказы</a>
                 </li>
                 <li>
                     <a href="/cart">Корзина</a>

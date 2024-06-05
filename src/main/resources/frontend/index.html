@@ -11,13 +11,18 @@
         function addToCart(event) {
             let eventAttr = event.target.getAttribute('data-event').replace("Event", "");
 
+            console.log("eventAttr", eventAttr);
+
             let keyValuePairs = eventAttr.slice(1, -1).split(", ");
+            console.log("keyValuePairs", keyValuePairs);
             let eventObj = {};
             keyValuePairs.forEach(function (pair) {
                 let parts = pair.split("=");
                 let key = parts[0].trim();
                 let value = parts[1].trim().replace(/'/g, ""); // Удаляем одинарные кавычки
-                eventObj[key] = value;
+                if (key !== 'organizer' && key !== 'orders') {
+                    eventObj[key] = value;
+                }
             });
 
             let eventCount = document.getElementById(`eventCountInput-${eventObj["id"]}`).value;
@@ -48,7 +53,6 @@
             document.getElementById(`add-to-cart-button-${eventObj["id"]}`).style.backgroundColor = 'green';
             document.getElementById(`add-to-cart-button-${eventObj["id"]}`).textContent = 'Добавлено';
         }
-
     </script>
 
     <script>
@@ -87,7 +91,9 @@
             <div>
                 <label>Количество билетов</label>
                 <input th:id="${'eventCountInput-' + event.id}" type="number" min="0"/>
-                <button th:id="${'add-to-cart-button-' + event.id}"  onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
+                <button th:id="${'add-to-cart-button-' + event.id}" onclick="addToCart(event)"
+                        th:attr="data-event=${event}">Добавить
+                </button>
             </div>
         </div>
     </div>
