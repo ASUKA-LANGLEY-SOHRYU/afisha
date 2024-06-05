@@ -1,6 +1,7 @@
 package com.example.afisha.services;
 
 import com.example.afisha.models.Event;
+import com.example.afisha.models.dto.EventDTO;
 import com.example.afisha.repository.EventRepository;
 import com.example.afisha.repository.specification.EventFilter;
 import com.example.afisha.repository.specification.EventSpecification;
