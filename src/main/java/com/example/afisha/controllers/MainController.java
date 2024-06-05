@@ -1,10 +1,13 @@
 package com.example.afisha.controllers;
 
+import com.example.afisha.repository.specification.EventFilter;
 import com.example.afisha.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @Controller
 public class MainController {
@@ -24,11 +27,8 @@ public class MainController {
 
     @GetMapping("/")
     public String getMainPage(Model model,
-                              @RequestParam(defaultValue = "0") Integer page,
-                              @RequestParam(defaultValue = "10") Integer size,
-                              @RequestParam(required = false) String sortFieldName,
-                              @RequestParam(required = false) String sortDirection){
-        model.addAttribute("events", eventService.findAll(page, size, sortFieldName, sortDirection));
+                              @ModelAttribute EventFilter eventFilter){
+        model.addAttribute("events", eventService.findAll(eventFilter));
         return "../frontend/index";
     }
 
