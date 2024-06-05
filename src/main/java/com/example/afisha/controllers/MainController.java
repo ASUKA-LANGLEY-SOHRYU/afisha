@@ -26,9 +26,9 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String getMainPage(Model model,
-                              @ModelAttribute EventFilter eventFilter){
+    public String getMainPage(Model model, @ModelAttribute EventFilter eventFilter){
         model.addAttribute("events", eventService.findAll(eventFilter));
+        model.addAttribute("filter", new EventFilter());
         return "../frontend/index";
     }
 
