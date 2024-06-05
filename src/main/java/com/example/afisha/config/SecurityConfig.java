@@ -49,8 +49,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/login", "/auth/registration").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
-                        .requestMatchers("/addEvent").hasRole("ORGANIZER")
-                        .requestMatchers("/users").hasRole("ADMIN")
+                        // .requestMatchers("/addEvent").hasRole("ORGANIZER")
+                        // .requestMatchers("/users").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedHandler(accessDeniedHandler())

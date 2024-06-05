@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+
 @Controller
 public class EventsController {
     private final EventService eventService;
@@ -36,8 +38,10 @@ public class EventsController {
             return "../frontend/addEvent";
         }
 
-        User currentUser = (User) userService.getCurrentUser();
+        User currentUser = userService.getCurrentUser();
+        long usId = currentUser.getId();
         event.setOrganization(currentUser);
+        event.setOrders(new ArrayList<>());
         eventService.createEvent(event);
         return "redirect:/";
     }

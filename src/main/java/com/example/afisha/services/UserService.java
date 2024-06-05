@@ -4,8 +4,8 @@ import com.example.afisha.models.Event;
 import com.example.afisha.models.Order;
 import com.example.afisha.models.User;
 import com.example.afisha.repository.UserRepository;
-import com.example.afisha.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,8 +53,9 @@ public class UserService implements UserDetailsService {
         return userRepository.getById(id);
     }
 
-    public Object getCurrentUser() {
-        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getMyUser();
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User customUser = (User)authentication.getPrincipal();
+        return customUser;
     }
 }
