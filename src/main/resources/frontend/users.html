@@ -11,8 +11,7 @@
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 
 <main>
-    <p>Welcome to users!</p>
-    <p th:text="${example}"></p>
+    <p>Все пользователи сайта</p>
     <table>
         <thead>
         <tr>
@@ -22,7 +21,6 @@
             <th scope="col">Отчество</th>
             <th scope="col">Номер телефона</th>
             <th scope="col">Email</th>
-            <th scope="col">Дата рождения</th>
             <th scope="col">Заказы</th>
         </tr>
         </thead>
@@ -34,7 +32,6 @@
             <td th:text="${user.patronymic}"></td>
             <td th:text="${user.phoneNumber}"></td>
             <td th:text="${user.email}"></td>
-            <td th:text="${user.birthDate}"></td>
             <td>
                 <a th:href="${'order/' + user.id}">Перейти к заказам</a>
             </td>
