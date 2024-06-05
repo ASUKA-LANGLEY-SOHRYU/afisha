@@ -1,6 +1,7 @@
 package com.example.afisha.services;
 
 import com.example.afisha.models.Event;
+import com.example.afisha.models.User;
 import com.example.afisha.models.dto.EventDTO;
 import com.example.afisha.repository.EventRepository;
 import com.example.afisha.repository.specification.EventFilter;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -46,6 +48,11 @@ public class EventService {
             pageable = PageRequest.of(page, size, sort);
         }
         return eventRepository.findAll(spec, pageable);
+    }
+
+    public List<Event> getAllOrganizerEvents(Authentication authentication){
+        var user = (User) authentication.getPrincipal();
+        return eventRepository.findAllByOrganizationId(user.getId());
     }
 
     public List<Event> getEventsSortedByDate() { return eventRepository.findAll(Sort.by("dateTime").ascending()); }

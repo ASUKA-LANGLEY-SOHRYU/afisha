@@ -52,6 +52,7 @@ public class SecurityConfig {
                         // .requestMatchers("/addEvent").hasAnyRole("ORGANIZER", "ADMIN")
                         // .requestMatchers("/users").hasRole("ADMIN")
                         // .requestMatchers("/orders/**").hasAnyRole("ADMIN", "ORGANIZER")
+                        //.requestMatchers("/events/my").hasRole("ORGANIZER")
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedHandler(accessDeniedHandler())
