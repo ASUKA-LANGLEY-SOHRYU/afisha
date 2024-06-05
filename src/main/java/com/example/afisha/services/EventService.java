@@ -28,15 +28,21 @@ public class EventService {
     }
 
     public Page<Event> findAll(EventFilter eventFilter){
+        int page = 0;
+        int size = 10;
+        if (eventFilter.getPage() != null)
+            page = eventFilter.getPage();
+        if (eventFilter.getSize() != null)
+            size = eventFilter.getSize();
         Pageable pageable;
         var spec = EventSpecification.getEventSpecification(eventFilter.toEventSpecificationFilter());
         if (eventFilter.getSortFieldName() == null)
-            pageable = PageRequest.of(eventFilter.getPage(), eventFilter.getSize());
+            pageable = PageRequest.of(page, size);
         else {
             if (!eventFilter.getSortDirection().equals("asc") && !eventFilter.getSortDirection().equals("desc"))
                 eventFilter.setSortDirection("asc");
             var sort = Sort.by(Sort.Direction.fromString(eventFilter.getSortDirection()), eventFilter.getSortFieldName());
-            pageable = PageRequest.of(eventFilter.getPage(), eventFilter.getSize(), sort);
+            pageable = PageRequest.of(page, size, sort);
         }
         return eventRepository.findAll(spec, pageable);
     }
