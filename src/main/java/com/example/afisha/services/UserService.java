@@ -3,25 +3,33 @@ package com.example.afisha.services;
 import com.example.afisha.models.Event;
 import com.example.afisha.models.Order;
 import com.example.afisha.models.User;
+import com.example.afisha.models.dto.UserEditDTO;
 import com.example.afisha.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getUsersData() {
@@ -35,6 +43,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    @Transactional
     public void save(User user) {
         userRepository.save(user);
     }
@@ -56,7 +65,25 @@ public class UserService implements UserDetailsService {
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User customUser = (User)authentication.getPrincipal();
-        return customUser;
+        return (User)authentication.getPrincipal();
+    }
+
+    public void editMe(UserEditDTO userEdit){
+        var user = getCurrentUser();
+        if(userEdit.getFirstName() != null)
+            user.setFirstName(userEdit.getFirstName());
+        if(userEdit.getPatronymic() != null)
+            user.setPatronymic(userEdit.getPatronymic());
+        if(userEdit.getLastName() != null)
+            user.setLastName(userEdit.getLastName());
+        if(userEdit.getEmail() != null)
+            user.setEmail(userEdit.getEmail());
+        if(userEdit.getPhoneNumber() != null)
+            user.setPhoneNumber(userEdit.getPhoneNumber());
+        if(userEdit.getBirthDate() != null)
+            user.setBirthDate(Timestamp.from(Instant.from(userEdit.getBirthDate())));
+        if(userEdit.getPassword() != null)
+            user.setPassword(passwordEncoder.encode(userEdit.getPassword()));
+        userRepository.save(user);
     }
 }

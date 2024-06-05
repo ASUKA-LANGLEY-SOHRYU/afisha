@@ -54,4 +54,8 @@ public class OrderService {
                 .build();
         orderRepository.save(order);
     }
+
+    public Integer getNumberOfOrdersByEventId(Long eventId){
+        return orderRepository.getNumberOfOrdersByEventId(eventId);
+    }
 }

@@ -11,4 +11,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o WHERE o.user.id = :userId")
     List<Order> findOrdersByUserId(Long userId);
+
+    @Query("select SUM(o.count) from Order o where o.event.id = :id")
+    Integer getNumberOfOrdersByEventId(Long id);
 }

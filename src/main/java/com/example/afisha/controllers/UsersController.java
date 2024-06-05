@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 public class UsersController {
@@ -30,6 +32,12 @@ public class UsersController {
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("example2", "test2");
         model.addAttribute("userEvents", userService.getUserOrders());
+        return "../frontend/profile";
+    }
+
+    @PostMapping("/users/me")
+    public String editMe(Model model, Authentication authentication){
+        //userService.editMe();
         return "../frontend/profile";
     }
 
