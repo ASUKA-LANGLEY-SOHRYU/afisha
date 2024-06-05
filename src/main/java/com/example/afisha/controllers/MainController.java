@@ -34,4 +34,9 @@ public class MainController {
         model.addAttribute("events", eventService.getEventsSortedByDate());
         return "../frontend/index";
     }
+
+    @GetMapping("/error_role")
+    public String getErrorRolePage(Model model){
+        return "../frontend/error_role";
+    }
 }
