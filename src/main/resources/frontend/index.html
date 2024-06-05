@@ -74,7 +74,7 @@
     <button id="addEventButton" onclick="addEventRedirect()">Создать мероприятие</button>
 
     <div class="event-card-container">
-        <div class="event-card" th:each="event : ${events.content}">
+        <div class="event-card" th:each="event : ${events}">
             <div>
                 <div>
                     <strong><a href="" th:text="${event.name}">Название</a></strong>
