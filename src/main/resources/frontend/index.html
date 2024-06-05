@@ -8,23 +8,32 @@
     <title>Онлайн афиша</title>
     <script>
         /*
-        document.getElementById("sortButton").onclick = function (event) => {
+        function sortEvents(event) {
             event.preventDefault();
-            fetch('/sortEventsByDate').then(response => {
-                if(response.ok){
-                    window.location.reload();
-                }
+            console.log("test");
+            fetch('/sortEventsByDate', {
+                method: 'GET'
             })
-        };
+                .then(response => {
+                    if (response.ok) {
+                        // window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+         document.getElementById("sortForm").addEventListener('click', function (event) {
+             event.preventDefault();
+             fetch('/sortEventsByDate').then(response => {
+                 if (response.ok) {
+                     window.location.reload();
+                 }
+             })
+         });
+
          */
-        document.getElementById("sortForm").addEventListener('click', function (event) {
-            event.preventDefault();
-            fetch('/sortEventsByDate').then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                }
-            })
-        });
     </script>
 
     <script>
@@ -80,11 +89,12 @@
 <main>
     <p>Welcome to Main Page!</p>
     <p th:text="${example}"></p>
-    <form id="sortForm" method="get"> <!-- action="/sortEventsByDate"> -->
-        <button id="sortButton" type="submit">Сортировать по дате</button>
+    <!--
+    <form id="sortForm" method="get">
+        <button id="sortButton" type="submit" onclick="sortEvents(event)">Сортировать по дате</button>
     </form>
-
-    <button id="addEventButton" onclick="addEventRedirect">Создать мероприятие</button>
+    -->
+    <button id="addEventButton" onclick="addEventRedirect()">Создать мероприятие</button>
 
     <div class="event-card-container">
         <div class="event-card" th:each="event : ${events}">
@@ -105,7 +115,6 @@
                 <label>Количество билетов</label>
                 <input th:id="${'eventCountInput-' + event.id}" type="number" min="0"/>
                 <button onclick="addToCart(event)" th:attr="data-event=${event}">Добавить</button>
-
             </div>
         </div>
     </div>
