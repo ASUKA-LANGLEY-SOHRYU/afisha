@@ -1,0 +1,8 @@
+.cart-name-container{
+    display: flex;
+    align-items: center;
+}
+
+.cart-name-container p{
+    padding-left: 1em;
+}
