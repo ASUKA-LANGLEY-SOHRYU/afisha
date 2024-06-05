@@ -68,3 +68,38 @@ td, th {
     width: 100%;
     height: 1em;
 }
+
+/* ПЕРЕПЕСТИТЬ ПОТОМ */
+/* Style the pagination container */
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style the pagination links */
+.pagination {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    margin-right: 10px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #337ab7;
+}
+
+.pagination a:hover {
+    color: #23527c;
+}
+
+/* Style the active page */
+.pagination a.active {
+    color: #23527c;
+    font-weight: bold;
+}
