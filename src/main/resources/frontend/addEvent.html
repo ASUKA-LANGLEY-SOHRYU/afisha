@@ -11,7 +11,7 @@
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 <main>
     <p>На данной странице Вы можете создать новое мероприятие</p>
-    <form action="/addEvent" method="post">
+    <form action="/events/add" method="post">
         <div class="form-group">
             <label for="name">Название:</label>
             <input type="text" class="form-control" id="name" name="name" required>
