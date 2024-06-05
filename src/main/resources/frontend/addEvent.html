@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/addEvent.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
     <title>Онлайн афиша</title>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 <main>
-    <p>Welcome to Add New Event Page!</p>
+    <p>На данной странице Вы можете создать новое мероприятие!</p>
     <form action="/addEvent" method="post">
         <div class="form-group">
             <label for="name">Название:</label>

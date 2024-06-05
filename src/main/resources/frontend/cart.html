@@ -16,6 +16,10 @@
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 <main>
+    <div>
+    <h3>Корзина</h3>
+    <p>5 товаров</p>
+    </div>
     <div id="cartContainer"></div>
     <p id="totalPrice"></p> <!-- Элемент для отображения общей суммы -->
     <button onclick="checkout()">Оформить заказ</button>
