@@ -47,8 +47,8 @@ public class UsersController {
         return "../frontend/editUser";
     }
 
-    @PostMapping("/users/edit/{id}")
-    public String editUser(Model model, @RequestBody UserEditDTO userEditDTO, @PathVariable("id") Long id){
+    @PostMapping("/edit/{id}")
+    public String editUser(Model model, @ModelAttribute UserEditDTO userEditDTO, @PathVariable("id") Long id){
         userService.editMe(userEditDTO);
         model.addAttribute("message", "Пользователь успешно отредактирован!");
         return ("redirect:/users/" + id);

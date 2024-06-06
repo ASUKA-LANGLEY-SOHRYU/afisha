@@ -5,6 +5,24 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
     <title>Редактирование профиля</title>
+
+    <script>
+        function confirmEditUser() {
+            fetch(`/users/edit${user.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Пользователь успешно добавлен!');
+                } else {
+                    console.error('Ошибка при редактировании пользователя');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>

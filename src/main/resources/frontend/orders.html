@@ -16,6 +16,7 @@
             <h2 th:text="${'Заказ №' + order.getId()}"></h2>
             <p th:text="${'Мероприятие: ' + order.getEvent().getName()}"></p>
             <p th:text="${'Дата и время мероприятия: ' + order.getEvent().getDateTime()}"></p>
+            <p th:text="${'Количество купленных билетов: ' + order.getCount()}"></p>
         </div>
     </div>
 </main>

@@ -48,9 +48,10 @@ public class EventsController {
         return "redirect:/";
     }
 
+    // ивенты организатора
     @GetMapping("/my")
     public String myEvents(Authentication authentication, Model model){
         model.addAttribute("events", eventService.getAllOrganizerEvents(authentication));
-        return "";
+        return "../frontend/myEvents";
     }
 }
