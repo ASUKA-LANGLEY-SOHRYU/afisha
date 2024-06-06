@@ -24,12 +24,6 @@ public class MainController {
         this.eventDTOMapper = eventDTOMapper;
     }
 
-
-    @GetMapping("/hello")
-    public String getHelloPage(){
-        return "../frontend/hello";
-    }
-
     @GetMapping("/")
     public String getMainPage(Model model, @ModelAttribute EventFilter eventFilter){
         model.addAttribute("events", eventService.findAll(eventFilter).stream()
