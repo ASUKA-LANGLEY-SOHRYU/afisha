@@ -16,7 +16,7 @@
     </div>
     <div id="cart-event-card-container"></div>
     <p id="totalPrice"></p> <!-- Элемент для отображения общей суммы -->
-    <button class="cart-purchase-button" onclick="checkout()" th:if="${cart.size() > 0}">Оформить заказ</button>
+    <button class="cart-purchase-button" onclick="checkout()">Оформить заказ</button>
 </main>
 <script>
     // Получение данных из локального хранилища
@@ -36,6 +36,8 @@
         let totalPrice = 0; // Переменная для хранения общей суммы
 
         if (cart) {
+            cartContainer.innerHTML = ''; // Очищаем контейнер для карточек
+
             cart.forEach(function (item, index) {
                 const card = document.createElement('div');
                 card.classList.add('cart-card');
@@ -69,6 +71,7 @@
                 removeButton.classList.add('cart-delete-button');
                 removeButton.addEventListener('click', function () {
                     cart.splice(index, 1);
+                    cartContainer.removeChild(card); // Удаляем карточку из DOM-дерева
                     localStorage.setItem('cart', JSON.stringify(cart));
                     renderCart();
                     updateTotalPrice(); // Обновляем общую сумму после удаления
