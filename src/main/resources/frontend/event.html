@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/header_fragment.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>Title</title>
+    <script>
+        function redirectToEditEvent() {
+            window.location.href = "/events/edit/" + userId;
+        }
+    </script>
+</head>
+<body>
+<header th:replace="~{fragments/header_fragment :: headFragment}"></header>
+<main>
+    <h2 th:text="${'Заказ №' + event.id}"/>
+    <div class="profile-container">
+        <div>
+            <b>Название</b>
+            <p th:text="${event.name}"/>
+        </div>
+        <div>
+            <b>Цена</b>
+            <p th:text="${event.price}"/>
+        </div>
+        <div>
+            <b>Дата и время</b>
+            <p th:text="${event.dateTime}"/>
+        </div>
+    </div>
+    <button th:onclick="'redirectToEditEvent(' + ${event.id} + ')'">Редактировать</button>
+</main>
+</body>
+</html>

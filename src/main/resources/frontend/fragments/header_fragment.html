@@ -29,7 +29,7 @@
                     <a href="/orders">Все заказы</a>
                 </li>
                 <li>
-                    <a href="/cart">Корзина</a>
+                    <a href="/cart">Корзина<span id="header-cart-count">10</span></a>
                 </li>
                 <li>
                     <a href="/users/me">Профиль</a>
@@ -40,6 +40,11 @@
             </ul>
         </nav>
     </div>
+
+    <script>
+        console.log(localStorage.getItem("cart"));
+        document.getElementById("header-cart-count").textContent = localStorage.getItem("cart") != null ? ` (${localStorage.getItem("cart").length})` : " (0)";
+    </script>
 </header>
 </body>
 </html>

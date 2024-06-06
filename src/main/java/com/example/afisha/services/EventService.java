@@ -26,13 +26,13 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public List<Event> getEventsData(){
+    public List<Event> getEventsData() {
         return eventRepository.findAll();
     }
 
-    public Page<Event> findAll(EventFilter eventFilter){
+    public Page<Event> findAll(EventFilter eventFilter) {
         int page = 0;
-        int size = 10;
+        int size = 12;
         if (eventFilter.getPage() != null)
             page = eventFilter.getPage();
         if (eventFilter.getSize() != null)
@@ -50,14 +50,20 @@ public class EventService {
         return eventRepository.findAll(spec, pageable);
     }
 
-    public List<Event> getAllOrganizerEvents(Authentication authentication){
+    public List<Event> getAllOrganizerEvents(Authentication authentication) {
         var user = (User) authentication.getPrincipal();
         return eventRepository.findAllByOrganizationId(user.getId());
     }
 
-    public List<Event> getEventsSortedByDate() { return eventRepository.findAll(Sort.by("dateTime").ascending()); }
+    public List<Event> getEventsSortedByDate() {
+        return eventRepository.findAll(Sort.by("dateTime").ascending());
+    }
 
-    public void createEvent(Event event){
+    public Event getEventById(long id) {
+        return eventRepository.findById(id).orElseThrow();
+    }
+
+    public void createEvent(Event event) {
         eventRepository.save(event);
     }
 }

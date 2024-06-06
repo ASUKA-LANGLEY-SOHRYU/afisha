@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/css/profile.css">
     <title>Профиль</title>
 
-
     <script>
         function redirectToEditProfile(userId) {
             window.location.href = "/users/edit/" + userId;
@@ -46,10 +45,6 @@
         <div>
             <b>Электронная почта</b>
             <p th:text="${user.email}"/>
-        </div>
-        <div th:if="${isMyProfile}">
-            <b>Пароль</b>
-            <p th:text="${user.password}"/>
         </div>
     </div>
     <button th:onclick="'redirectToEditProfile(' + ${user.id} + ')'">Редактировать</button>
