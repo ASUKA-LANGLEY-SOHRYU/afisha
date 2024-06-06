@@ -107,3 +107,12 @@ td, th {
 #sortForm div *{
     margin: 0.5em;
 }
+
+.main-page-filter-button{
+    width: 100%;
+}
+
+.sortForm-container {
+    display: flex;
+    justify-content: space-around;
+}

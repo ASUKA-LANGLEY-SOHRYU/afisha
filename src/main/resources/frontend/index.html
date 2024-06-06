@@ -70,41 +70,43 @@
 <main>
     <p>Добро пожаловать на главную страницу!</p>
     <form id="sortForm" method="get">
-        <div>
-            <select id="sortSelect">
-                <option value="dateTime">Дата</option>
-                <option value="price">Цена</option>
-                <option value="name">Название</option>
-            </select>
+        <div class="sortForm-container">
+            <div>
+                <select id="sortSelect">
+                    <option value="dateTime">Дата</option>
+                    <option value="price">Цена</option>
+                    <option value="name">Название</option>
+                </select>
 
-            <select id="sortDirection">
-                <option value="asc">По возрастанию</option>
-                <option value="desc">По убыванию</option>
-            </select>
+                <select id="sortDirection">
+                    <option value="asc">По возрастанию</option>
+                    <option value="desc">По убыванию</option>
+                </select>
+            </div>
+            <div>
+                <div>
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name"><br/>
+                </div>
+                <div>
+                    <label for="priceFrom">Цена от:</label>
+                    <input type="number" id="priceFrom" name="priceFrom"><br/>
+                </div>
+                <div>
+                    <label for="priceTo">Цена до:</label>
+                    <input type="number" id="priceTo" name="priceTo"><br/>
+                </div>
+                <div>
+                    <label for="dateFrom">Дата с:</label>
+                    <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
+                </div>
+                <div>
+                    <label for="dateTo">Дата до:</label>
+                    <input type="datetime-local" id="dateTo" name="dateTo"><br/>
+                </div>
+            </div>
         </div>
-        <div>
-            <div>
-                <label for="name">Название:</label>
-                <input type="text" id="name" name="name"><br/>
-            </div>
-            <div>
-                <label for="priceFrom">Цена от:</label>
-                <input type="number" id="priceFrom" name="priceFrom"><br/>
-            </div>
-            <div>
-                <label for="priceTo">Цена до:</label>
-                <input type="number" id="priceTo" name="priceTo"><br/>
-            </div>
-            <div>
-                <label for="dateFrom">Дата с:</label>
-                <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
-            </div>
-            <div>
-                <label for="dateTo">Дата до:</label>
-                <input type="datetime-local" id="dateTo" name="dateTo"><br/>
-            </div>
-        </div>
-        <button type="button" onclick="sortEvents(event)">Применить</button>
+        <button type="button" onclick="sortEvents(event)" class="main-page-filter-button">Применить</button>
     </form>
 
 
