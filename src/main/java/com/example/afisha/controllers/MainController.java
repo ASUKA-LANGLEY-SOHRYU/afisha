@@ -24,11 +24,16 @@ public class MainController {
         this.eventDTOMapper = eventDTOMapper;
     }
 
+    @ModelAttribute("filter")
+    public EventFilter userFilter() {
+        return new EventFilter();
+    }
+
     @GetMapping("/")
     public String getMainPage(Model model, @ModelAttribute EventFilter eventFilter){
         model.addAttribute("events", eventService.findAll(eventFilter).stream()
                 .map(eventDTOMapper::map).toList());
-        model.addAttribute("filter", new EventFilter());
+        model.addAttribute("filter", eventFilter);
         return "../frontend/index";
     }
 
