@@ -9,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -23,13 +20,13 @@ public class EventsController {
     private final UserService userService;
 
     @Autowired
-    public EventsController(EventService eventService, UserService userService){
+    public EventsController(EventService eventService, UserService userService) {
         this.eventService = eventService;
         this.userService = userService;
     }
 
     @GetMapping("/add")
-    public String showAddEvent(Model model){
+    public String showAddEvent(Model model) {
         model.addAttribute("event", new Event());
         return "../frontend/addEvent";
     }
@@ -50,8 +47,14 @@ public class EventsController {
 
     // ивенты организатора
     @GetMapping("/my")
-    public String myEvents(Authentication authentication, Model model){
+    public String myEvents(Authentication authentication, Model model) {
         model.addAttribute("events", eventService.getAllOrganizerEvents(authentication));
         return "../frontend/myEvents";
+    }
+
+    @GetMapping("/{id}")
+    public String getEventPage(@PathVariable("id") long id, Model model) {
+        model.addAttribute("event", eventService.getEventById(id));
+        return "../frontend/event";
     }
 }

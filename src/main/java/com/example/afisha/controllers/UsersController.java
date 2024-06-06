@@ -30,7 +30,6 @@ public class UsersController {
 
     @GetMapping("/me")
     public String getMyProfilePage(Model model, Authentication authentication){
-        model.addAttribute("isMyProfile", true);
         model.addAttribute("user", userService.getCurrentUser());
         return "../frontend/profile";
     }

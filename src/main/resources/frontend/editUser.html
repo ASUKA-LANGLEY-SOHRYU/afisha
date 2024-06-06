@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
+    <link rel="stylesheet" href="/css/editUser.css">
     <title>Редактирование профиля</title>
 
     <script>
@@ -48,15 +49,11 @@
             </div>
             <div>
                 <label for="birthDate">Дата рождения:</label>
-                <input type="datetime-local" th:field="*{birthDate}" id="birthDate"><br/>
+                <input type="date" th:field="*{birthDate}" id="birthDate"><br/>
             </div>
             <div>
                 <label for="email">Электронная почта:</label>
                 <input type="email" th:field="*{email}" id="email"><br/>
-            </div>
-            <div th:if="${isMyProfile}">
-                <label for="password">Пароль:</label>
-                <input type="password" th:field="*{password}" id="password"><br/>
             </div>
         </div>
         <button type="submit">Сохранить изменения</button>

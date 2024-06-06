@@ -58,17 +58,38 @@
             window.location.href = "/events/add";
         }
     </script>
+
+    <script>
+        function sortEvents() {
+            const sortSelect = document.getElementById('sortSelect');
+            const sortDirection = document.getElementById('sortDirection').value;
+            const sortField = sortSelect.value;
+
+            // Обновляем URL для сортировки
+            const url = `/?sortFieldName=${sortField}&sortDirection=${sortDirection}`;
+            window.location.href = url;
+        }
+
+    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 
 <main>
     <p>Добро пожаловать на главную страницу!</p>
-    <!--
-    -->
     <form id="sortForm" method="get">
-        <button id="sortButton" type="submit" onclick="sortEvents(event)">Сортировать по дате</button>
+        <select id="sortSelect" onchange="sortEvents(event)">
+            <option value="dateTime">Дата</option>
+            <option value="price">Цена</option>
+            <option value="name">Название</option>
+        </select>
+        <select id="sortDirection">
+            <option value="asc">По возрастанию</option>
+            <option value="desc">По убыванию</option>
+        </select>
+        <button type="button" onclick="sortEvents()">Сортировать</button>
     </form>
+
 
     <div class="event-card-container">
         <div class="event-card" th:each="event : ${events}">
