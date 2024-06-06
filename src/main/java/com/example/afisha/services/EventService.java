@@ -90,4 +90,10 @@ public class EventService {
 
         eventRepository.save(event);
     }
+
+    @Transactional
+    public void delete(Long eventId){
+        var event = eventRepository.findById(eventId).orElseThrow();
+        eventRepository.deleteById(eventId);
+    }
 }

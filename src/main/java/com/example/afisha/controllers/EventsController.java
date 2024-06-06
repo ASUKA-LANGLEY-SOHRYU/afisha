@@ -78,4 +78,10 @@ public class EventsController {
         eventService.edit(eventEditDTO, id);
         return "";
     }
+
+    @PostMapping("/delete/{id}")
+    public String deleteEvent(Model model, @PathVariable("id") Long id){
+        eventService.delete(id);
+        return "";
+    }
 }
