@@ -42,8 +42,9 @@
     </div>
 
     <script>
-        console.log(localStorage.getItem("cart"));
-        document.getElementById("header-cart-count").textContent = localStorage.getItem("cart") != null ? ` (${localStorage.getItem("cart").length})` : " (0)";
+        const myCart = JSON.parse(localStorage.getItem("cart"))
+        console.log(myCart);
+        document.getElementById("header-cart-count").textContent = myCart != null ? ` (${myCart.length})` : " (0)";
     </script>
 </header>
 </body>
