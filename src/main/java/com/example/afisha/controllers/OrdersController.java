@@ -43,7 +43,7 @@ public class OrdersController {
     @GetMapping("/orders")
     public String getOrdersPage(Model model){
         // тут класть все заказы
-        model.addAttribute("userOrders", orderService.getAllOrders());
+        model.addAttribute("orders", orderService.getAllOrders());
         return "../frontend/orders";
     }
 }
