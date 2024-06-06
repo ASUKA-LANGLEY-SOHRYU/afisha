@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/event.css">
     <title>Title</title>
     <script>
         function redirectToEditEvent(eventId) {
             window.location.href = "/events/edit/" + eventId;
+        }
+
+        function deleteEvent(eventId) {
+            fetch('/events/delete/' + eventId, {
+                method: "DELETE",
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
 </head>
@@ -31,10 +45,13 @@
         </div>
         <div>
             <b>Куплено билетов</b>
-            <p th:text="${statistic_number}"/>
+            <p th:text="${statistic_number != null ? statistic_number : 0}"/>
         </div>
     </div>
-    <button th:onclick="'redirectToEditEvent(' + ${event.id} + ')'">Редактировать</button>
+    <div>
+        <button th:onclick="'redirectToEditEvent(' + ${event.id} + ')'">Редактировать</button>
+        <button class="event-delete-button" th:onclick="'deleteEvent(' + ${event.id} + ')'">Удалить</button>
+    </div>
 </main>
 </body>
 </html>

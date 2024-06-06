@@ -66,22 +66,19 @@ public class EventsController {
 
     @GetMapping("/edit/{id}")
     public String getEditEventPage(Model model, @PathVariable("id") Long id){
-        var user = userService.getCurrentUser();
-        if (user.getId().equals(id))
-            return "redirect:/users/edit/me";
-        model.addAttribute("user", userService.getUserById(id));
-        return "../frontend/editUser";
+        model.addAttribute("myEvent", eventService.getEventById(id));
+        return "../frontend/editEvent";
     }
 
     @PostMapping("/edit/{id}")
     public String editEvent(Model model, @ModelAttribute EventEditDTO eventEditDTO, @PathVariable("id") Long id){
         eventService.edit(eventEditDTO, id);
-        return "";
+        return ("redirect:/events/" + id);
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteEvent(Model model, @PathVariable("id") Long id){
         eventService.delete(id);
-        return "";
+        return ("redirect:/events/my");
     }
 }

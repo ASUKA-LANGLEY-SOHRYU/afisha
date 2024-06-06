@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/header_fragment.css">
+    <link rel="stylesheet" href="/css/editUser.css">
+    <title>Редактирование профиля</title>
+
+    <script>
+        function confirmEditUser() {
+            fetch(`/events/edit/${myEvent.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(myEvent)
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Пользователь успешно добавлен!');
+                } else {
+                    console.error('Ошибка при редактировании пользователя');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<header th:replace="~{fragments/header_fragment :: headFragment}"></header>
+<main>
+    <h2 th:text="${'Редактирование мероприятия №' + myEvent.id}"/>
+    <form th:action="@{/events/edit/{id}(id=${myEvent.id})}" method="post" th:object="${myEvent}">
+        <div class="profile-container">
+            <div>
+                <label for="lastName">Наименование:</label>
+                <input type="text" th:field="*{name}" id="lastName"><br/>
+            </div>
+            <div>
+                <label for="firstName">Цена:</label>
+                <input type="text" th:field="*{price}" id="firstName"><br/>
+            </div>
+            <div>
+                <label for="patronymic">Дата и время:</label>
+                <input type="text" th:field="*{dateTime}" id="patronymic"><br/>
+            </div>
+        </div>
+        <button type="submit">Сохранить изменения</button>
+    </form>
+</main>
+</body>
+</html>

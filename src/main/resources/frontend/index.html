@@ -81,20 +81,26 @@
             </select>
         </div>
         <div>
-            <label for="name">Название:</label>
-            <input type="text" id="name" name="name"><br/>
-
-            <label for="priceFrom">Цена от:</label>
-            <input type="number" id="priceFrom" name="priceFrom"><br/>
-
-            <label for="priceTo">Цена до:</label>
-            <input type="number" id="priceTo" name="priceTo"><br/>
-
-            <label for="dateFrom">Дата с:</label>
-            <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
-
-            <label for="dateTo">Дата до:</label>
-            <input type="datetime-local" id="dateTo" name="dateTo"><br/>
+            <div>
+                <label for="name">Название:</label>
+                <input type="text" id="name" name="name"><br/>
+            </div>
+            <div>
+                <label for="priceFrom">Цена от:</label>
+                <input type="number" id="priceFrom" name="priceFrom"><br/>
+            </div>
+            <div>
+                <label for="priceTo">Цена до:</label>
+                <input type="number" id="priceTo" name="priceTo"><br/>
+            </div>
+            <div>
+                <label for="dateFrom">Дата с:</label>
+                <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
+            </div>
+            <div>
+                <label for="dateTo">Дата до:</label>
+                <input type="datetime-local" id="dateTo" name="dateTo"><br/>
+            </div>
         </div>
         <button type="button" onclick="sortEvents(event)">Применить</button>
     </form>
@@ -115,9 +121,9 @@
             console.log(filterDateTo);
 
             const urlParams = new URLSearchParams();
-            if(sortSelect)
+            if (sortSelect)
                 urlParams.set('sortFieldName', sortSelect);
-            if(sortDirection)
+            if (sortDirection)
                 urlParams.set('sortDirection', sortDirection);
 
             if (filterName)
@@ -132,7 +138,7 @@
             if (filterDateFrom)
                 urlParams.set('dateFrom', filterDateFrom);
 
-            if (filterDateTo) 
+            if (filterDateTo)
                 urlParams.set('dateTo', filterDateTo);
 
 
