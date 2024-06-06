@@ -78,7 +78,7 @@
 <main>
     <p>Добро пожаловать на главную страницу!</p>
     <form id="sortForm" method="get">
-        <select id="sortSelect" onchange="sortEvents(event)">
+        <select id="sortSelect">
             <option value="dateTime">Дата</option>
             <option value="price">Цена</option>
             <option value="name">Название</option>
@@ -89,6 +89,17 @@
         </select>
         <button type="button" onclick="sortEvents()">Сортировать</button>
     </form>
+
+    <script>
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        params.forEach((value, name) => {
+            if (name == "sortFieldName")
+                document.getElementById("sortSelect").value = value;
+            if (name == "sortDirection")
+                document.getElementById("sortDirection").value = value;
+        });
+    </script>
 
 
     <div class="event-card-container">
