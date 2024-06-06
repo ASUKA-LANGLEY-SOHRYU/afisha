@@ -14,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +33,8 @@ public class EventService {
     }
 
     public Page<Event> findAll(EventFilter eventFilter) {
+        var sortDirections = List.of("asc", "desc");
+        var sortFields = List.of("name", "dateTime", "price");
         int page = 0;
         int size = 12;
         if (eventFilter.getPage() != null)
@@ -42,8 +46,10 @@ public class EventService {
         if (eventFilter.getSortFieldName() == null)
             pageable = PageRequest.of(page, size);
         else {
-            if (!eventFilter.getSortDirection().equals("asc") && !eventFilter.getSortDirection().equals("desc"))
+            if (!sortDirections.contains(eventFilter.getSortDirection()))
                 eventFilter.setSortDirection("asc");
+            if (!sortFields.contains(eventFilter.getSortFieldName()))
+                eventFilter.setSortFieldName("dateTime");
             var sort = Sort.by(Sort.Direction.fromString(eventFilter.getSortDirection()), eventFilter.getSortFieldName());
             pageable = PageRequest.of(page, size, sort);
         }
