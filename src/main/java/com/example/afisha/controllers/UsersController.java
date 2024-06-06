@@ -29,7 +29,7 @@ public class UsersController {
     }
 
     @GetMapping("/me")
-    public String getMyProfilePage(Model model, Authentication authentication){
+    public String getMyProfilePage(Model model){
         model.addAttribute("isMyProfile", true);
         model.addAttribute("user", userService.getCurrentUser());
         return "../frontend/profile";
@@ -43,6 +43,9 @@ public class UsersController {
 
     @GetMapping("/edit/{id}")
     public String getEditProfilePage(Model model, @PathVariable("id") Long id){
+        var user = userService.getCurrentUser();
+        if (user.getId().equals(id))
+            return "redirect:/users/edit/me";
         model.addAttribute("user", userService.getUserById(id));
         return "../frontend/editUser";
     }
@@ -51,6 +54,22 @@ public class UsersController {
     public String editUser(Model model, @ModelAttribute UserEditDTO userEditDTO, @PathVariable("id") Long id){
         userService.editUserById(id, userEditDTO);
         model.addAttribute("message", "Пользователь успешно отредактирован!");
+        var user = userService.getCurrentUser();
+        if (user.getId().equals(id))
+            return "redirect:/users/me";
         return ("redirect:/users/" + id);
+    }
+
+    @GetMapping("/edit/me")
+    public String getMyEditProfilePage(Model model){
+        model.addAttribute("user", userService.getCurrentUser());
+        return "../frontend/editUser";
+    }
+
+    @PostMapping("/edit/me")
+    public String editMe(Model model, @ModelAttribute UserEditDTO userEditDTO){
+        userService.editMe(userEditDTO);
+        model.addAttribute("message", "Пользователь успешно отредактирован!");
+        return "redirect:/users/me";
     }
 }

@@ -6,6 +6,7 @@ import com.example.afisha.models.User;
 import com.example.afisha.models.dto.UserEditDTO;
 import com.example.afisha.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -63,23 +64,27 @@ public class UserService implements UserDetailsService {
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (User)authentication.getPrincipal();
+        return (User) authentication.getPrincipal();
+    }
+
+    public User loadCurrentUser() {
+        var userId = getCurrentUser().getId();
+        return userRepository.findById(userId).orElseThrow();
     }
 
     @Transactional
     public void editMe(UserEditDTO userEdit){
         var user = getCurrentUser();
         editUser(user, userEdit);
-        userRepository.save(user);
     }
 
     @Transactional
     public void editUserById(Long userId, UserEditDTO userEdit){
         var user = userRepository.findById(userId).orElseThrow();
         editUser(user, userEdit);
-        userRepository.save(user);
     }
 
+    @Transactional
     public void editUser(User user, UserEditDTO userEdit){
         if(userEdit.getFirstName() != null)
             user.setFirstName(userEdit.getFirstName());
@@ -93,5 +98,11 @@ public class UserService implements UserDetailsService {
             user.setPhoneNumber(userEdit.getPhoneNumber());
         if(userEdit.getBirthDate() != null)
             user.setBirthDate(Timestamp.from(Instant.from(userEdit.getBirthDate())));
+
+        userRepository.save(user);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(user, authentication.getCredentials(), authentication.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 }
