@@ -42,9 +42,12 @@
     </div>
 
     <script>
-        const myCart = JSON.parse(localStorage.getItem("cart"))
-        console.log(myCart);
-        document.getElementById("header-cart-count").textContent = myCart != null ? ` (${myCart.length})` : " (0)";
+        function updateCartCount() {
+            const myCart = JSON.parse(localStorage.getItem("cart"))
+            console.log(myCart);
+            document.getElementById("header-cart-count").textContent = myCart != null ? ` (${myCart.length})` : " (0)";
+        }
+        updateCartCount();
     </script>
 </header>
 </body>

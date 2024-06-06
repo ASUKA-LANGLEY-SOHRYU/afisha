@@ -75,6 +75,7 @@
                     localStorage.setItem('cart', JSON.stringify(cart));
                     renderCart();
                     updateTotalPrice(); // Обновляем общую сумму после удаления
+                    updateCartCount();
                 });
 
                 countContainer.appendChild(countInput);
@@ -152,7 +153,8 @@
             if (response.ok) {
                 console.log('Заказ успешно оформлен!');
                 localStorage.removeItem('cart');
-                renderCart();
+                window.location.href = "/cart"
+                //renderCart();
             } else {
                 console.error('Ошибка при оформлении заказа');
             }
