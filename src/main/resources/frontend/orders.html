@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
@@ -17,8 +18,8 @@
             <p th:text="${'Мероприятие: ' + order.getEvent().getName()}"></p>
             <p th:text="${'Дата и время мероприятия: ' + order.getEvent().getDateTime()}"></p>
             <p th:text="${'Количество купленных билетов: ' + order.getCount()}"></p>
-            <p th:text="${'Пользователь: ' + order.getUser().getFullName()}"></p>
-            <p th:text="${'id Пользователя: ' + order.getUser().getId()}"></p>
+            <p sec:authorize="hasRole('ROLE_ADMIN')" th:text="${'Пользователь: ' + order.getUser().getFullName()}"></p>
+            <p sec:authorize="hasRole('ROLE_ADMIN')" th:text="${'id Пользователя: ' + order.getUser().getId()}"></p>
         </div>
     </div>
 </main>
