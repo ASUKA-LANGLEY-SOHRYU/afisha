@@ -66,8 +66,21 @@ public class UserService implements UserDetailsService {
         return (User)authentication.getPrincipal();
     }
 
+    @Transactional
     public void editMe(UserEditDTO userEdit){
         var user = getCurrentUser();
+        editUser(user, userEdit);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void editUserById(Long userId, UserEditDTO userEdit){
+        var user = userRepository.findById(userId).orElseThrow();
+        editUser(user, userEdit);
+        userRepository.save(user);
+    }
+
+    public void editUser(User user, UserEditDTO userEdit){
         if(userEdit.getFirstName() != null)
             user.setFirstName(userEdit.getFirstName());
         if(userEdit.getPatronymic() != null)
@@ -80,6 +93,5 @@ public class UserService implements UserDetailsService {
             user.setPhoneNumber(userEdit.getPhoneNumber());
         if(userEdit.getBirthDate() != null)
             user.setBirthDate(Timestamp.from(Instant.from(userEdit.getBirthDate())));
-        userRepository.save(user);
     }
 }
