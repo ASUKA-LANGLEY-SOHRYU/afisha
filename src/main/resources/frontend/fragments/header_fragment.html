@@ -16,7 +16,7 @@
                 <li sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="/users">Пользователи</a>
                 </li>
-                <li sec:authorize="hasRole('ROLE_ORGANIZER')">
+                <li sec:authorize="hasAnyRole('ROLE_ORGANIZER', 'ROLE_ADMIN')">
                     <a href="/events/my">Мои мероприятия</a>
                 </li>
                 <li sec:authorize="hasAnyRole('ROLE_ORGANIZER', 'ROLE_ADMIN')">
