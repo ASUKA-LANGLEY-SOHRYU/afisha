@@ -14,4 +14,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select SUM(o.count) from Order o where o.event.id = :id")
     Integer getNumberOfOrdersByEventId(Long id);
+
+    List<Order> findByEventId(Long id);
 }

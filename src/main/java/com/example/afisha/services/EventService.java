@@ -5,6 +5,7 @@ import com.example.afisha.models.User;
 import com.example.afisha.models.dto.EventDTO;
 import com.example.afisha.models.dto.EventEditDTO;
 import com.example.afisha.repository.EventRepository;
+import com.example.afisha.repository.OrderRepository;
 import com.example.afisha.repository.specification.EventFilter;
 import com.example.afisha.repository.specification.EventSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class EventService {
     private final EventRepository eventRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, OrderRepository orderRepository) {
         this.eventRepository = eventRepository;
+        this.orderRepository = orderRepository;
     }
 
     public List<Event> getEventsData() {
@@ -93,6 +96,8 @@ public class EventService {
 
     @Transactional
     public void delete(Long eventId){
+        var orders = orderRepository.findByEventId(eventId);
+        orderRepository.deleteAll(orders);
         eventRepository.deleteById(eventId);
     }
 }

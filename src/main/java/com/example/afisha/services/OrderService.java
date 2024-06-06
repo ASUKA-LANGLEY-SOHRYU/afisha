@@ -58,4 +58,9 @@ public class OrderService {
     public Integer getNumberOfOrdersByEventId(Long eventId){
         return orderRepository.getNumberOfOrdersByEventId(eventId);
     }
+
+    @Transactional
+    public void delete(Long id){
+        orderRepository.deleteById(id);
+    }
 }

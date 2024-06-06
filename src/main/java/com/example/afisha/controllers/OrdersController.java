@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class OrdersController {
@@ -44,6 +45,12 @@ public class OrdersController {
     public String getOrdersPage(Model model){
         // тут класть все заказы
         model.addAttribute("orders", orderService.getAllOrders());
+        return "../frontend/orders";
+    }
+
+    @PostMapping("/orders/{id}/delete")
+    public String deleteOrder(Model model, @PathVariable("id") Long id){
+        orderService.delete(id);
         return "../frontend/orders";
     }
 }
