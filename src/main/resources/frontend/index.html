@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
@@ -174,7 +176,11 @@
         <div class="event-card" th:each="event : ${events}">
             <div>
                 <div>
-                    <strong><a href="" th:text="${event.name}">Название</a></strong>
+                    <strong>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/events/' + event.id}"
+                           th:text="${event.name}">Название</a>
+                        <p sec:authorize="!hasRole('ROLE_ADMIN')" th:text="${event.name}">Название</p>
+                    </strong>
                 </div>
                 <div>
                     <span th:text="${'Дата проведения: ' + event.DateTime}">Дата</span>
