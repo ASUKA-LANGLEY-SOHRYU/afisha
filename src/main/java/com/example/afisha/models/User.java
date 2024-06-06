@@ -89,5 +89,9 @@ public class User implements UserDetails {
         return true;
     }
 
+    @Transient
+    public String getFullName(){
+        return lastName + " " + firstName + " " + patronymic;
+    }
 
 }
