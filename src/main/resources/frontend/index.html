@@ -106,7 +106,6 @@
             const sortSelect = document.getElementById('sortSelect').value;
             const sortDirection = document.getElementById('sortDirection').value;
 
-
             const filterName = document.getElementById('name').value;
             const filterPriceFrom = document.getElementById('priceFrom').value;
             const filterPriceTo = document.getElementById('priceTo').value;
@@ -139,7 +138,7 @@
 
             const urlFilter = new URL(window.location.href);
             urlFilter.search = urlParams.toString();
-            //window.location.href = urlFilter.toString();
+            window.location.href = urlFilter.toString();
         }
     </script>
 

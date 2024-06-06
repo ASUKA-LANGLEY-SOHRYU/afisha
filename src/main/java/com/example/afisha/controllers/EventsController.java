@@ -4,6 +4,7 @@ import com.example.afisha.models.Event;
 import com.example.afisha.models.User;
 import com.example.afisha.models.dto.UserEditDTO;
 import com.example.afisha.services.EventService;
+import com.example.afisha.services.OrderService;
 import com.example.afisha.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,11 +20,13 @@ import java.util.ArrayList;
 public class EventsController {
     private final EventService eventService;
     private final UserService userService;
+    private final OrderService orderService;
 
     @Autowired
-    public EventsController(EventService eventService, UserService userService) {
+    public EventsController(EventService eventService, UserService userService, OrderService orderService) {
         this.eventService = eventService;
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/add")
@@ -56,6 +59,7 @@ public class EventsController {
     @GetMapping("/{id}")
     public String getEventPage(@PathVariable("id") long id, Model model) {
         model.addAttribute("event", eventService.getEventById(id));
+        model.addAttribute("statistic_number", orderService.getNumberOfOrdersByEventId(id));
         return "../frontend/event";
     }
 
@@ -70,11 +74,6 @@ public class EventsController {
 
     @PostMapping("/edit/{id}")
     public String editEvent(Model model, @ModelAttribute UserEditDTO userEditDTO, @PathVariable("id") Long id){
-        userService.editUserById(id, userEditDTO);
-        model.addAttribute("message", "Пользователь успешно отредактирован!");
-        var user = userService.getCurrentUser();
-        if (user.getId().equals(id))
-            return "redirect:/users/me";
-        return ("redirect:/users/" + id);
+        
     }
 }

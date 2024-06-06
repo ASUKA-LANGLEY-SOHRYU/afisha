@@ -15,7 +15,7 @@
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 <main>
-    <h2 th:text="${'Заказ №' + event.id}"/>
+    <h2 th:text="${'Мероприятие №' + event.id}"/>
     <div class="profile-container">
         <div>
             <b>Название</b>
@@ -30,8 +30,8 @@
             <p th:text="${event.dateTime}"/>
         </div>
         <div>
-            <b>Статистика посещений</b>
-            <p th:text="${event.dateTime}"/>
+            <b>Куплено билетов</b>
+            <p th:text="${statistic_number}"/>
         </div>
     </div>
     <button th:onclick="'redirectToEditEvent(' + ${event.id} + ')'">Редактировать</button>
