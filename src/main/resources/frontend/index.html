@@ -70,6 +70,29 @@
             window.location.href = url;
         }
 
+        function applyFilter() {
+            const filterForm = document.getElementById('filterForm');
+            const formData = new FormData(filterForm);
+
+            const urlFilter = new URL(window.location.href);
+            urlFilter.searchParams.delete('page'); // Удаляем параметр страницы, чтобы начинать с первой страницы
+
+            for (const [key, value] of formData.entries()) {
+                if (value) {
+                    urlFilter.searchParams.set(key, value);
+                } else {
+                    urlFilter.searchParams.delete(key);
+                }
+            }
+
+            // Если сортировка уже была, добавляем ее в URL
+            if (urlFilter.searchParams.has('sortFieldName') && urlFilter.searchParams.has('sortDirection')) {
+                urlFilter.searchParams.set('sortFieldName', urlFilter.searchParams.get('sortFieldName'));
+                urlFilter.searchParams.set('sortDirection', urlFilter.searchParams.get('sortDirection'));
+            }
+
+            window.location.href = urlFilter.toString();
+        }
     </script>
 </head>
 <body>
@@ -90,6 +113,27 @@
         <button type="button" onclick="sortEvents()">Сортировать</button>
     </form>
 
+
+    <form id="filterForm" method="get">
+        <label for="name">Название:</label>
+        <input type="text" id="name" name="name"><br/>
+
+        <label for="priceFrom">Цена от:</label>
+        <input type="number" id="priceFrom" name="priceFrom"><br/>
+
+        <label for="priceTo">Цена до:</label>
+        <input type="number" id="priceTo" name="priceTo"><br/>
+
+        <label for="dateFrom">Дата с:</label>
+        <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
+
+        <label for="dateTo">Дата до:</label>
+        <input type="datetime-local" id="dateTo" name="dateTo"><br/>
+
+        <button type="submit">Применить фильтр</button>
+    </form>
+
+
     <script>
         const url = new URL(window.location.href);
         const params = url.searchParams;
@@ -98,6 +142,16 @@
                 document.getElementById("sortSelect").value = value;
             if (name == "sortDirection")
                 document.getElementById("sortDirection").value = value;
+            if (name == "name")
+                document.getElementById("name").value = value;
+            if (name == "priceFrom")
+                document.getElementById("priceFrom").value = value;
+            if (name == "priceTo")
+                document.getElementById("priceTo").value = value;
+            if (name == "dateFrom")
+                document.getElementById("dateFrom").value = value;
+            if (name == "dateTo")
+                document.getElementById("dateTo").value = value;
         });
     </script>
 
