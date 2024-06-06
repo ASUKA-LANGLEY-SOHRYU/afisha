@@ -16,7 +16,7 @@
     </div>
     <div id="cart-event-card-container"></div>
     <p id="totalPrice"></p> <!-- Элемент для отображения общей суммы -->
-    <button class="cart-purchase-button" onclick="checkout()" th:if="${cart.size() > 0}">Оформить заказ</button>
+    <button class="cart-purchase-button" onclick="checkout()" th:if="${not #lists.isEmpty(cart)}">Оформить заказ</button>
 </main>
 <script>
     // Получение данных из локального хранилища

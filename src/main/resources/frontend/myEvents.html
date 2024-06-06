@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
-    <title>Мои афиши</title>
+    <title>Мероприятия</title>
 </head>
 <body>
 
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
 <main>
-    <p>fhd</p>
+    <p>Мои мероприятия</p>
+    <div class="event-card-container">
+        <div class="event-card" th:each="event : ${events}">
+            <b><a th:href="${'/event/' + event.id}" th:text="${'Мероприятие №' + event.id}"></a></b>
+            <p th:text="${event.name}"></p>
+            <p th:text="${'Дата и время: ' + event.dateTime}"></p>
+            <p th:text="${'Цена: ' + event.price}"></p>
+        </div>
+    </div>
 </main>
 </body>
 </html>
