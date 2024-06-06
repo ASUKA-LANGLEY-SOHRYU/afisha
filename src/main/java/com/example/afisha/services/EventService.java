@@ -93,7 +93,6 @@ public class EventService {
 
     @Transactional
     public void delete(Long eventId){
-        var event = eventRepository.findById(eventId).orElseThrow();
         eventRepository.deleteById(eventId);
     }
 }
