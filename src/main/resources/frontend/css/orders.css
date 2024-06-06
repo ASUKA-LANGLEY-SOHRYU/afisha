@@ -1,0 +1,7 @@
+.order-delete-button {
+    width: 100%;
+}
+
+.order-delete-button:hover{
+    background-color: red;
+}

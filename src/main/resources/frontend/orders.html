@@ -5,7 +5,22 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
+    <link rel="stylesheet" href="/css/orders.css">
     <title>Заказы</title>
+
+    <script>
+        function deleteOrder(orderId) {
+            fetch('/orders/delete/' + orderId, {
+                method: "DELETE",
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    window.location.reload();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -17,9 +32,12 @@
             <h2 th:text="${'Заказ №' + order.getId()}"></h2>
             <p th:text="${'Мероприятие: ' + order.getEvent().getName()}"></p>
             <p th:text="${'Дата и время мероприятия: ' + order.getEvent().getDateTime()}"></p>
-            <p th:text="${'Количество купленных билетов: ' + order.getCount()}"></p>
+            <p th:text="${'Количество заказанных билетов: ' + order.getCount()}"></p>
             <p sec:authorize="hasRole('ROLE_ADMIN')" th:text="${'Пользователь: ' + order.getUser().getFullName()}"></p>
             <p sec:authorize="hasRole('ROLE_ADMIN')" th:text="${'id Пользователя: ' + order.getUser().getId()}"></p>
+            <button class="order-delete-button" sec:authorize="!hasRole('ROLE_ADMIN')"
+                    th:onclick="'deleteOrder(' + ${order.getId()} + ')'">Удалить
+            </button>
         </div>
     </div>
 </main>
