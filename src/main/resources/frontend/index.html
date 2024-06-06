@@ -59,41 +59,7 @@
         }
     </script>
 
-    <script>
-        function sortEvents() {
-            const sortSelect = document.getElementById('sortSelect');
-            const sortDirection = document.getElementById('sortDirection').value;
-            const sortField = sortSelect.value;
 
-            // Обновляем URL для сортировки
-            const url = `/?sortFieldName=${sortField}&sortDirection=${sortDirection}`;
-            window.location.href = url;
-        }
-
-        function applyFilter() {
-            const filterForm = document.getElementById('filterForm');
-            const formData = new FormData(filterForm);
-
-            const urlFilter = new URL(window.location.href);
-            urlFilter.searchParams.delete('page'); // Удаляем параметр страницы, чтобы начинать с первой страницы
-
-            for (const [key, value] of formData.entries()) {
-                if (value) {
-                    urlFilter.searchParams.set(key, value);
-                } else {
-                    urlFilter.searchParams.delete(key);
-                }
-            }
-
-            // Если сортировка уже была, добавляем ее в URL
-            if (urlFilter.searchParams.has('sortFieldName') && urlFilter.searchParams.has('sortDirection')) {
-                urlFilter.searchParams.set('sortFieldName', urlFilter.searchParams.get('sortFieldName'));
-                urlFilter.searchParams.set('sortDirection', urlFilter.searchParams.get('sortDirection'));
-            }
-
-            window.location.href = urlFilter.toString();
-        }
-    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -114,7 +80,7 @@
     </form>
 
 
-    <form id="filterForm" method="get">
+    <form id="filterForm" method="get" onsubmit="applyFilter(event)">
         <label for="name">Название:</label>
         <input type="text" id="name" name="name"><br/>
 
@@ -133,6 +99,42 @@
         <button type="submit">Применить фильтр</button>
     </form>
 
+    <script>
+        function sortEvents() {
+            const sortSelect = document.getElementById('sortSelect');
+            const sortDirection = document.getElementById('sortDirection').value;
+            const sortField = sortSelect.value;
+
+            // Обновляем URL для сортировки
+            const url = `/?sortFieldName=${sortField}&sortDirection=${sortDirection}`;
+            window.location.href = url;
+        }
+
+        function applyFilter(event) {
+            event.preventDefault();
+            const filterForm = document.getElementById('filterForm');
+            const formData = new FormData(filterForm);
+
+            const urlFilter = new URL(window.location.href);
+            urlFilter.searchParams.delete('page'); // Удаляем параметр страницы, чтобы начинать с первой страницы
+
+            formData.forEach((value, key) => {
+                if (value && value.trim() !== '') {
+                    urlFilter.searchParams.set(key, value);
+                } else {
+                    urlFilter.searchParams.delete(key);
+                }
+            });
+
+            // Если сортировка уже была, добавляем ее в URL
+            if (urlFilter.searchParams.has('sortFieldName') && urlFilter.searchParams.has('sortDirection')) {
+                urlFilter.searchParams.set('sortFieldName', urlFilter.searchParams.get('sortFieldName'));
+                urlFilter.searchParams.set('sortDirection', urlFilter.searchParams.get('sortDirection'));
+            }
+
+            window.location.href = urlFilter.toString();
+        }
+    </script>
 
     <script>
         const url = new URL(window.location.href);
