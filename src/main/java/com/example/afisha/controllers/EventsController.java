@@ -2,6 +2,7 @@ package com.example.afisha.controllers;
 
 import com.example.afisha.models.Event;
 import com.example.afisha.models.User;
+import com.example.afisha.models.dto.EventEditDTO;
 import com.example.afisha.models.dto.UserEditDTO;
 import com.example.afisha.services.EventService;
 import com.example.afisha.services.OrderService;
@@ -73,7 +74,8 @@ public class EventsController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editEvent(Model model, @ModelAttribute UserEditDTO userEditDTO, @PathVariable("id") Long id){
-        
+    public String editEvent(Model model, @ModelAttribute EventEditDTO eventEditDTO, @PathVariable("id") Long id){
+        eventService.edit(eventEditDTO, id);
+        return "";
     }
 }

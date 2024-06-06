@@ -3,6 +3,7 @@ package com.example.afisha.services;
 import com.example.afisha.models.Event;
 import com.example.afisha.models.User;
 import com.example.afisha.models.dto.EventDTO;
+import com.example.afisha.models.dto.EventEditDTO;
 import com.example.afisha.repository.EventRepository;
 import com.example.afisha.repository.specification.EventFilter;
 import com.example.afisha.repository.specification.EventSpecification;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class EventService {
     private final EventRepository eventRepository;
 
@@ -69,7 +72,22 @@ public class EventService {
         return eventRepository.findById(id).orElseThrow();
     }
 
+    @Transactional
     public void createEvent(Event event) {
+        eventRepository.save(event);
+    }
+
+    @Transactional
+    public void edit(EventEditDTO eventEditDTO, Long eventId){
+        var event = eventRepository.findById(eventId).orElseThrow();
+
+        if(eventEditDTO.getName() != null)
+            event.setName(eventEditDTO.getName());
+        if(eventEditDTO.getPrice() != null)
+            event.setPrice(eventEditDTO.getPrice());
+        if(eventEditDTO.getDateTime() != null)
+            event.setDateTime(eventEditDTO.getDateTime());
+
         eventRepository.save(event);
     }
 }
