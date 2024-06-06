@@ -16,11 +16,11 @@
 
         function deleteEvent(eventId) {
             fetch('/events/delete/' + eventId, {
-                method: "DELETE",
+                method: "POST",
             })
                 .then(response => response.text())
                 .then(data => {
-                    console.log(data);
+                    window.location.href = "/"
                 })
                 .catch(error => console.error('Error:', error));
         }
