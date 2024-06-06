@@ -12,7 +12,7 @@
     <p>Мои мероприятия</p>
     <div class="event-card-container">
         <div class="event-card" th:each="event : ${events}">
-            <b><a th:href="${'/event/' + event.id}" th:text="${'Мероприятие №' + event.id}"></a></b>
+            <b><a th:href="${'/events/' + event.id}" th:text="${'Мероприятие №' + event.id}"></a></b>
             <p th:text="${event.name}"></p>
             <p th:text="${'Дата и время: ' + event.dateTime}"></p>
             <p th:text="${'Цена: ' + event.price}"></p>

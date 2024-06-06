@@ -153,8 +153,7 @@
             if (response.ok) {
                 console.log('Заказ успешно оформлен!');
                 localStorage.removeItem('cart');
-                window.location.href = "/cart"
-                //renderCart();
+                window.location.reload();
             } else {
                 console.error('Ошибка при оформлении заказа');
             }

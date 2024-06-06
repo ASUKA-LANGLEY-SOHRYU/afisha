@@ -2,6 +2,7 @@ package com.example.afisha.controllers;
 
 import com.example.afisha.models.Event;
 import com.example.afisha.models.User;
+import com.example.afisha.models.dto.UserEditDTO;
 import com.example.afisha.services.EventService;
 import com.example.afisha.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,24 @@ public class EventsController {
     public String getEventPage(@PathVariable("id") long id, Model model) {
         model.addAttribute("event", eventService.getEventById(id));
         return "../frontend/event";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getEditEventPage(Model model, @PathVariable("id") Long id){
+        var user = userService.getCurrentUser();
+        if (user.getId().equals(id))
+            return "redirect:/users/edit/me";
+        model.addAttribute("user", userService.getUserById(id));
+        return "../frontend/editUser";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editEvent(Model model, @ModelAttribute UserEditDTO userEditDTO, @PathVariable("id") Long id){
+        userService.editUserById(id, userEditDTO);
+        model.addAttribute("message", "Пользователь успешно отредактирован!");
+        var user = userService.getCurrentUser();
+        if (user.getId().equals(id))
+            return "redirect:/users/me";
+        return ("redirect:/users/" + id);
     }
 }

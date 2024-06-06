@@ -68,72 +68,78 @@
 <main>
     <p>Добро пожаловать на главную страницу!</p>
     <form id="sortForm" method="get">
-        <select id="sortSelect">
-            <option value="dateTime">Дата</option>
-            <option value="price">Цена</option>
-            <option value="name">Название</option>
-        </select>
-        <select id="sortDirection">
-            <option value="asc">По возрастанию</option>
-            <option value="desc">По убыванию</option>
-        </select>
-        <button type="button" onclick="sortEvents()">Сортировать</button>
+        <div>
+            <select id="sortSelect">
+                <option value="dateTime">Дата</option>
+                <option value="price">Цена</option>
+                <option value="name">Название</option>
+            </select>
+
+            <select id="sortDirection">
+                <option value="asc">По возрастанию</option>
+                <option value="desc">По убыванию</option>
+            </select>
+        </div>
+        <div>
+            <label for="name">Название:</label>
+            <input type="text" id="name" name="name"><br/>
+
+            <label for="priceFrom">Цена от:</label>
+            <input type="number" id="priceFrom" name="priceFrom"><br/>
+
+            <label for="priceTo">Цена до:</label>
+            <input type="number" id="priceTo" name="priceTo"><br/>
+
+            <label for="dateFrom">Дата с:</label>
+            <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
+
+            <label for="dateTo">Дата до:</label>
+            <input type="datetime-local" id="dateTo" name="dateTo"><br/>
+        </div>
+        <button type="button" onclick="sortEvents(event)">Применить</button>
     </form>
 
-
-    <form id="filterForm" method="get" onsubmit="applyFilter(event)">
-        <label for="name">Название:</label>
-        <input type="text" id="name" name="name"><br/>
-
-        <label for="priceFrom">Цена от:</label>
-        <input type="number" id="priceFrom" name="priceFrom"><br/>
-
-        <label for="priceTo">Цена до:</label>
-        <input type="number" id="priceTo" name="priceTo"><br/>
-
-        <label for="dateFrom">Дата с:</label>
-        <input type="datetime-local" id="dateFrom" name="dateFrom"><br/>
-
-        <label for="dateTo">Дата до:</label>
-        <input type="datetime-local" id="dateTo" name="dateTo"><br/>
-
-        <button type="submit">Применить фильтр</button>
-    </form>
 
     <script>
-        function sortEvents() {
-            const sortSelect = document.getElementById('sortSelect');
-            const sortDirection = document.getElementById('sortDirection').value;
-            const sortField = sortSelect.value;
-
-            // Обновляем URL для сортировки
-            const url = `/?sortFieldName=${sortField}&sortDirection=${sortDirection}`;
-            window.location.href = url;
-        }
-
-        function applyFilter(event) {
+        function sortEvents(event) {
             event.preventDefault();
-            const filterForm = document.getElementById('filterForm');
-            const formData = new FormData(filterForm);
+            const sortSelect = document.getElementById('sortSelect').value;
+            const sortDirection = document.getElementById('sortDirection').value;
+
+
+            const filterName = document.getElementById('name').value;
+            const filterPriceFrom = document.getElementById('priceFrom').value;
+            const filterPriceTo = document.getElementById('priceTo').value;
+            const filterDateFrom = document.getElementById('dateFrom').value;
+            const filterDateTo = document.getElementById('dateTo').value;
+
+            console.log(filterDateTo);
+
+            const urlParams = new URLSearchParams();
+            if(sortSelect)
+                urlParams.set('sortFieldName', sortSelect);
+            if(sortDirection)
+                urlParams.set('sortDirection', sortDirection);
+
+            if (filterName)
+                urlParams.set('name', filterName);
+
+            if (filterPriceFrom)
+                urlParams.set('priceFrom', filterPriceFrom);
+
+            if (filterPriceTo)
+                urlParams.set('priceTo', filterPriceTo);
+
+            if (filterDateFrom)
+                urlParams.set('dateFrom', filterDateFrom);
+
+            if (filterDateTo) 
+                urlParams.set('dateTo', filterDateTo);
+
 
             const urlFilter = new URL(window.location.href);
-            urlFilter.searchParams.delete('page'); // Удаляем параметр страницы, чтобы начинать с первой страницы
-
-            formData.forEach((value, key) => {
-                if (value && value.trim() !== '') {
-                    urlFilter.searchParams.set(key, value);
-                } else {
-                    urlFilter.searchParams.delete(key);
-                }
-            });
-
-            // Если сортировка уже была, добавляем ее в URL
-            if (urlFilter.searchParams.has('sortFieldName') && urlFilter.searchParams.has('sortDirection')) {
-                urlFilter.searchParams.set('sortFieldName', urlFilter.searchParams.get('sortFieldName'));
-                urlFilter.searchParams.set('sortDirection', urlFilter.searchParams.get('sortDirection'));
-            }
-
-            window.location.href = urlFilter.toString();
+            urlFilter.search = urlParams.toString();
+            //window.location.href = urlFilter.toString();
         }
     </script>
 

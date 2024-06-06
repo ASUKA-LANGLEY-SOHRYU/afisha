@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/profile.css">
     <title>Title</title>
     <script>
-        function redirectToEditEvent() {
-            window.location.href = "/events/edit/" + userId;
+        function redirectToEditEvent(eventId) {
+            window.location.href = "/events/edit/" + eventId;
         }
     </script>
 </head>
@@ -27,6 +27,10 @@
         </div>
         <div>
             <b>Дата и время</b>
+            <p th:text="${event.dateTime}"/>
+        </div>
+        <div>
+            <b>Статистика посещений</b>
             <p th:text="${event.dateTime}"/>
         </div>
     </div>
