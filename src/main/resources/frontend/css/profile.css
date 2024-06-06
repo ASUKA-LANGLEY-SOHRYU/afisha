@@ -1,0 +1,8 @@
+.profile-container div{
+    display: flex;
+    align-items: center;
+}
+
+.profile-container div p{
+    margin-left: 1em;
+}

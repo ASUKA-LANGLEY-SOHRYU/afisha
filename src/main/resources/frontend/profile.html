@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/header_fragment.css">
+    <link rel="stylesheet" href="/css/profile.css">
     <title>Профиль</title>
+
+
+    <script>
+        function redirectToEditProfile(userId) {
+            window.location.href = "/users/edit/" + userId;
+        }
+    </script>
 </head>
 <body>
 <header th:replace="~{fragments/header_fragment :: headFragment}"></header>
@@ -14,17 +22,37 @@
     <!--
     lastName, firstName, patronymic, phoneNumber, birthDate, email, password
     -->
-    <form name="form" method="post" th:action="${'/users/edit/' + user.id}">
-        <div class="profile-container">
-            <div th:each="field : ${fields}">
-                <div class="profile-container-field">
-                    <label th:text="${field}">Field</label>
-                    <input th:disabled="${editMode}" name="${field}" id="${field}"><br/>
-                </div>
-            </div>
-            <button th:if="${editMode}" th:text="Редактировать" th:disabled="${editMode}" type="submit"></button>
+    <div class="profile-container">
+        <div>
+            <b>Фамилия</b>
+            <p th:text="${user.lastName}"/>
         </div>
-    </form>
+        <div>
+            <b>Имя</b>
+            <p th:text="${user.firstName}"/>
+        </div>
+        <div>
+            <b>Отчество</b>
+            <p th:text="${user.patronymic}"/>
+        </div>
+        <div>
+            <b>Номер телефона</b>
+            <p th:text="${user.phoneNumber}"/>
+        </div>
+        <div>
+            <b>Дата рождения</b>
+            <p th:text="${user.birthDate}"/>
+        </div>
+        <div>
+            <b>Электронная почта</b>
+            <p th:text="${user.email}"/>
+        </div>
+        <div th:if="${isMyProfile}">
+            <b>Пароль</b>
+            <p th:text="${user.password}"/>
+        </div>
+    </div>
+    <button th:onclick="'redirectToEditProfile(' + ${user.id} + ')'">Редактировать</button>
 </main>
 </body>
 </html>

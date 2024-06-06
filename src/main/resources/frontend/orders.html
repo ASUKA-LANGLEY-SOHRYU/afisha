@@ -11,10 +11,12 @@
 
 <main>
     <p>Здесь отображаются заказы</p>
-    <div th:each="order : ${orders}">
-        <h2 th:text="${'Заказ ' + order.getId()}"></h2>
-        <p th:text="${order.getEvent().getName()}"></p>
-        <p th:text="${order.getEvent().getDateTime()}"></p>
+    <div class="event-card-container">
+        <div class="event-card" th:each="order : ${orders}">
+            <h2 th:text="${'Заказ №' + order.getId()}"></h2>
+            <p th:text="${'Мероприятие: ' + order.getEvent().getName()}"></p>
+            <p th:text="${'Дата и время мероприятия: ' + order.getEvent().getDateTime()}"></p>
+        </div>
     </div>
 </main>
 </body>

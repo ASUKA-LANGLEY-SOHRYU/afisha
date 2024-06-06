@@ -69,7 +69,6 @@
     <form id="sortForm" method="get">
         <button id="sortButton" type="submit" onclick="sortEvents(event)">Сортировать по дате</button>
     </form>
-    <button id="addEventButton" onclick="addEventRedirect()">Создать мероприятие</button>
 
     <div class="event-card-container">
         <div class="event-card" th:each="event : ${events}">
