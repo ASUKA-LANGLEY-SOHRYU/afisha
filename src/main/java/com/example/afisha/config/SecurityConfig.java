@@ -49,10 +49,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/login", "/auth/registration").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
-                        // .requestMatchers("/events/add").hasAnyRole("ORGANIZER", "ADMIN")
-                        // .requestMatchers("/users").hasRole("ADMIN")
-                        // .requestMatchers("/orders").hasRole("ADMIN")
-                        //.requestMatchers("/events/my").hasRole("ORGANIZER")
+                        .requestMatchers("/events/add").hasAnyRole("ORGANIZER", "ADMIN")
+                        .requestMatchers("/users").hasRole("ADMIN")
+                        .requestMatchers("/orders").hasRole("ADMIN")
+                        .requestMatchers("/events/my").hasRole("ORGANIZER")
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedHandler(accessDeniedHandler())

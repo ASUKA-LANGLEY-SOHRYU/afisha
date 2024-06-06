@@ -52,12 +52,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(username);
     }
 
-    public List<Order> getUserOrders() {
-        //List<Order> orders = ;
-
-        return null;
-    }
-
     public User getUserById(Long id) {
         return userRepository.getById(id);
     }
